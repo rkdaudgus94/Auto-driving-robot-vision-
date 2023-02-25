@@ -3,7 +3,6 @@ import pytesseract
 import threading
 import face_recognition
 # 비디오 스트림을 초기화합니다.
-cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 time = 0
 # pytesseract OCR 엔진을 초기화합니다.
 pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe"
@@ -33,6 +32,7 @@ def gstreamer_pipeline(
             display_height,
         )
     )
+cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 # 텍스트 인식을 처리하는 함수를 정의합니다.
 def recognize_text(frame):
     # 이미지에서 텍스트를 추출합니다.
