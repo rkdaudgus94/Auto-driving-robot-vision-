@@ -82,7 +82,7 @@ def respeak():
                     # break문을 통해 겹치는 단어는 표시 X
                     break
         name = ['Myung Hyun', 'Siwon', 'Hye seon', 'Tae eon']
-        place = ['613', '620', '랩실']
+        place = ['613', '620', '랩실', '물건']
         # 결과 출력
         print(text_division)
         for text in text_division :
