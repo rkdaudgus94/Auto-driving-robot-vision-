@@ -6,6 +6,7 @@ import math
 import glob
 import pytesseract
 import time
+import threading
 from multiprocessing import Process
 
 def face_confidence(face_distance, face_match_threshold=0.6): # face_distance 값과 face_match 임계값을 설정한 사설함수

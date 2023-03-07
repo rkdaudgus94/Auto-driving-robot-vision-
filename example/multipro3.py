@@ -32,7 +32,7 @@ def gstreamer_pipeline(
             display_height,
         )
     )
-cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
+cap = cv2.VideoCapture(0)
 # 텍스트 인식을 처리하는 함수를 정의합니다.
 def recognize_text(frame):
     # 이미지에서 텍스트를 추출합니다.
