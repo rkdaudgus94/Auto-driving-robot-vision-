@@ -83,6 +83,8 @@ def respeak():
                     break
         name = ['명현', '시원', '혜선', '태언']
         place = ['613', '620', '랩실', '물건']
+        r_name = []
+        r_place = []
         # 결과 출력
         print(text_division)
         for i in range(len(text_division)) :
