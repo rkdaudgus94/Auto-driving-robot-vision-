@@ -92,8 +92,8 @@ def respeak():
             for places in place :
                 if places == text :
                     r_place = places
-        print(r_name)
-        print(r_place)
+        print('이름은', r_name)
+        print('장소는', r_place)
         return speak_jetson()
     
     # 음성 인식 실패한 경우
