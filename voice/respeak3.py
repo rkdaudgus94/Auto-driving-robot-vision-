@@ -21,7 +21,7 @@ def speak_jetson():
             text = r.recognize_google(audio_data, language = 'ko')
             
             # 이름 인식 -> 음성 인식 코드로 넘어감
-            if(text == "태형") :
+            if(text == "젯슨") :
                 print("네! 부르셨나요?")
                 txt = "네! 부르셨나요?"
                 tts_kr = gTTS(txt, lang = 'ko', slow = False)
@@ -89,9 +89,10 @@ def respeak():
             for names in name :
                 if names == text :
                     r_name = names
-            for places in place :
-                if places == text :
-                    r_place = places
+                else : 
+                    for places in place :
+                        if places == text :
+                            r_place = places
         print('이름은', r_name)
         print('장소는', r_place)
         return speak_jetson()
