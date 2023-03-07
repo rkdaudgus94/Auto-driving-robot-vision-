@@ -81,18 +81,18 @@ def respeak():
                     # 613으로 같은 경우 '으로'와 '로'가 포함되어 2번 결과가 나오게 됨
                     # break문을 통해 겹치는 단어는 표시 X
                     break
-        name = ['Myung Hyun', 'Siwon', 'Hye seon', 'Tae eon']
+        name = ['명현', '시원', '혜선', '태언']
         place = ['613', '620', '랩실', '물건']
         # 결과 출력
         print(text_division)
-        for text in text_division :
-            for names in name :
-                if names == text :
-                    r_name = names
+        for i in range(len(text_division)) :
+            for j in range(len(name)) :
+                if name[j] == text_division[i] :
+                    r_name = name[j]
                 else : 
-                    for places in place :
-                        if places == text :
-                            r_place = places
+                    for x in range(len(place)) :
+                        if place[x] == text_division[i] :
+                            r_place = place[x]
         print('이름은', r_name)
         print('장소는', r_place)
         return speak_jetson()
