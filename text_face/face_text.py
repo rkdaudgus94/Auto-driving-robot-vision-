@@ -88,7 +88,8 @@ class Facerecognition:
 
                 rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
                 gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
-                imgchar = pytesseract.image_to_string(gray, lang = 'eng', config= ' --oem 1 --psm 10 ')
+                if (time % 10) == 0 :
+                    imgchar = pytesseract.image_to_string(gray, lang = 'eng', config= ' --oem 1 --psm 10 ')
                 self.face_location = fr.face_locations(rgb_small_frame)
                 self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
 
