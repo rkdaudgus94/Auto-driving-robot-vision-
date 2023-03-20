@@ -75,20 +75,22 @@ class Facerecognition:
     
     def video(self):
         cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
-
+        time = 0
         if not cap.isOpened() :
             print('unable to open camera')
             sys.exit()
 
         while True :
             ret, frame = cap.read()
-                
+            time = time + 1
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
                 rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
                 gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
-                imgchar = pytesseract.image_to_string(gray, lang = 'eng')
+                if time % 10 == 0 :
+                    imgchar = pytesseract.image_to_string(gray, lang = 'eng', config= ' --oem 1 --psm 10 ')
+                    print(imgchar)
                 self.face_location = fr.face_locations(rgb_small_frame)
                 self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
 
@@ -105,7 +107,6 @@ class Facerecognition:
                         match_percent = face_confidence(face_distance[best_match_index])
                     
                     self.face_names.append(f'{name} ({match_percent})')
-                    time.sleep(1.5)
             self.process_current_frame = not self.process_current_frame
 
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
@@ -119,7 +120,6 @@ class Facerecognition:
                 cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
             cv2.imshow('Face Recognition', frame)
-            print(imgchar)
             if cv2.waitKey(1) == ord('q'):
                     break
 

@@ -4,8 +4,8 @@ import time
 
 while True:
     # CPU 사용량 출력
-    cpu_percent = psutil.cpu_percent()
-    print(f"CPU Usage: {cpu_percent}%")
+    """ cpu_percent = psutil.cpu_percent()
+    print(f"CPU Usage: {cpu_percent}%") """
 
     # GPU 사용량 출력
     gpus = GPUtil.getGPUs()
