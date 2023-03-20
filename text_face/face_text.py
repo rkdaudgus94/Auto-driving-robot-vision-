@@ -82,14 +82,15 @@ class Facerecognition:
 
         while True :
             ret, frame = cap.read()
-            time = time + 1
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
                 rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
                 gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
+                time += 1
                 if (time % 10) == 0 :
                     imgchar = pytesseract.image_to_string(gray, lang = 'eng', config= ' --oem 1 --psm 10 ')
+                    print(imgchar)
                 self.face_location = fr.face_locations(rgb_small_frame)
                 self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
 
@@ -118,7 +119,6 @@ class Facerecognition:
                 cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,255,0), cv2.FILLED)
                 cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
             cv2.imshow('Face Recognition', frame)
-            print(imgchar)
             if cv2.waitKey(1) == ord('q'):
                     break
 
