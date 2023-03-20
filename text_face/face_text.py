@@ -89,7 +89,7 @@ class Facerecognition:
                 gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
                 time += 1
                 if (time % 10) == 0 :
-                    imgchar = pytesseract.image_to_string(gray, lang = 'eng', config= '--oem 1')
+                    imgchar = pytesseract.image_to_string(gray, lang = 'eng', config= '--oem 3 --psm 6')
                     print(imgchar)
                 self.face_location = fr.face_locations(rgb_small_frame)
                 self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
