@@ -62,7 +62,6 @@ def speak_jetson():
 
 # 음성 인식    
 def respeak():
-            global r_name
             
             # 음성인식 객체 생성
             r = sr.Recognizer()
@@ -147,10 +146,9 @@ def respeak():
                                     r_place = place[x]
                 print('이름은', r_name)
                 print('장소는', r_place)
-                
                 # r_name에 단어가 있으면 객체 인식 코드로 이동
                 if r_name :
-                    return vv()
+                    return vv(r_name)
                 
                 else :
                     return respeak()
@@ -251,7 +249,6 @@ def vv() :
     if __name__ == '__main__' :
         run = Facerecognition()
         run.video()
-
 
 try:  
     while True :

@@ -12,9 +12,7 @@ import speech_recognition as sr
 from gtts import gTTS
 import playsound
 
-r_name = []
 name1 = []
-
 image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/코딩/2023-1-Capstone-/example/webcam/faces/*.png'
 
 def face_confidence(face_distance, face_match_threshold=0.6): # face_distance 값과 face_match 임계값을 설정한 사설함수
@@ -62,7 +60,6 @@ def speak_jetson():
 
 # 음성 인식    
 def respeak():
-            global r_name
             
             # 음성인식 객체 생성
             r = sr.Recognizer()
@@ -150,7 +147,7 @@ def respeak():
                 
                 # r_name에 단어가 있으면 객체 인식 코드로 이동
                 if r_name :
-                    return vv()
+                    return vv(r_name)
                 
                 else :
                     return respeak()
@@ -187,7 +184,6 @@ class Facerecognition:
     
     def video(self):
         cap = cv2.VideoCapture(0)
-
         if not cap.isOpened() :
             print('unable to open camera')
             sys.exit()
@@ -215,9 +211,8 @@ class Facerecognition:
                     if match[best_match_index] :
                         name = self.known_face_names[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])
+                        self.face_names.append(f'{name} ({match_percent})')
                     name1 = name    
-                    
-                    self.face_names.append(f'{name} ({match_percent})')
             self.process_current_frame = not self.process_current_frame
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
@@ -231,9 +226,8 @@ class Facerecognition:
 
             cv2.imshow('Face Recognition', frame)
             
-            global r_name
             print(r_name)
-            if name1 == r_name :
+            if r_name == name :
                 print('찾았습니다!')
                 cap.release()
                 cv2.destroyAllWindows()
@@ -244,9 +238,9 @@ class Facerecognition:
                 break
                     
         
-def vv() :
+def vv(r_name) :
     if __name__ == '__main__' :
-        run = Facerecognition()
+        run = Facerecognition(r_name)
         run.video()
 
 
