@@ -243,7 +243,7 @@ class Facerecognition:
         print(self.known_face_names)
     
     def video(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 
         if not cap.isOpened() :
             print('unable to open camera')
@@ -291,6 +291,7 @@ class Facerecognition:
             cv2.imshow('Face Recognition', frame)
             
             global r_name
+            
             if name1 == r_name :
                 print('찾았습니다!')
                 txt = "찾았습니다!"
