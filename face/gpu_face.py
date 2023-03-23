@@ -1,62 +1,57 @@
 import cv2
+import numpy as np
+import os
+def detect_faces(image, net, conf_threshold=0.5):
+    (h, w) = image.shape[:2]
+    blob = cv2.dnn.blobFromImage(image, 1.0, (300, 300), (104.0, 177.0, 123.0))
 
-def gstreamer_pipeline(
-    capture_width=1920,
-    capture_height=1080,
-    display_width=960,
-    display_height=540,
-    framerate=30,
-    flip_method=0,
-):
-    return (
-        "nvarguscamerasrc ! "
-        "video/x-raw(memory:NVMM), "
-        "width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
-        "nvvidconv flip-method=%d ! "
-        "video/x-raw, width=(int)%d, height=(int)%d, format=(string)BGRx ! "
-        "videoconvert ! "
-        "video/x-raw, format=(string)BGR ! appsink drop=True"
-        % (
-            capture_width,
-            capture_height,
-            framerate,
-            flip_method,
-            display_width,
-            display_height,
-        )
-    )
-# GPU를 사용하여 비디오 캡처 초기화
-cap = cv2.VideoCapture(gstreamer_pipeline(), cv2.CAP_V4L2)
-cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+    net.setInput(blob)
+    detections = net.forward()
 
-# GPU를 사용하여 얼굴 감지기 초기화
-face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    faces = []
+
+    for i in range(0, detections.shape[2]):
+        confidence = detections[0, 0, i, 2]
+
+        if confidence > conf_threshold:
+            box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+            (start_x, start_y, end_x, end_y) = box.astype("int")
+            faces.append((start_x, start_y, end_x, end_y))
+
+    return faces
+
+# 모델 파일 경로 설정
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+prototxt_path = os.path.join(current_directory, 'deploy.prototxt.txt')
+caffemodel_path = os.path.join(current_directory, 'res10_300x300_ssd_iter_140000.caffemodel')
+
+# 모델 로드
+net = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
+
+# GPU 사용 설정
+net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
+
+# 카메라 모듈 초기화
+cap = cv2.VideoCapture(0)
 
 while True:
-    # GPU를 사용하여 프레임 읽기
     ret, frame = cap.read()
 
-    # GPU를 사용하여 얼굴 감지 수행
-    faces = face_cascade.detectMultiScale(frame, scaleFactor=1.3, minNeighbors=5)
-
-    # 감지된 얼굴에 대해 작업 수행
-    for (x, y, w, h) in faces:
-        # 얼굴 영역에 대해 특정 작업 수행
-        # 예: perform_action(frame[y:y+h, x:x+w])
-
-        # 얼굴 영역에 박스 그리기
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-    # GPU를 사용하여 프레임 출력
-    cv2.imshow('frame', frame)
-
-    # 종료 조건 설정
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if not ret:
         break
 
-# 자원 해제
+    faces = detect_faces(frame, net)
+
+    for (start_x, start_y, end_x, end_y) in faces:
+        cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (0, 255, 0), 2)
+
+    cv2.imshow("Frame", frame)
+
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord("q"):
+        break
+
 cap.release()
 cv2.destroyAllWindows()
