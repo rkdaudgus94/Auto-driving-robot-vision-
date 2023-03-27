@@ -6,12 +6,10 @@ import math
 import glob
 import pytesseract
 import time
-from multiprocessing import Process
-import speech_recognition as sr
-from gtts import gTTS
-import playsound
 
-# pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe"
+
+image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces/*.png'
+
 def face_confidence(face_distance, face_match_threshold=0.6): # face_distance 값과 face_match 임계값을 설정한 사설함수
     range = (1.0 - face_match_threshold)
     linear_val = (1.0 - face_distance) / (range * 2.0)
@@ -21,40 +19,7 @@ def face_confidence(face_distance, face_match_threshold=0.6): # face_distance �
     else:
         value = (linear_val + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))) * 100
         return str(round(value, 2)) + '%'
-
-def gstreamer_pipeline(
-    sensor_id=0,
-    capture_width=1920,
-    capture_height=1080,
-    display_width=960,
-    display_height=540,
-    framerate=30,
-    flip_method=0,
-):
-    return (
-        "nvarguscamerasrc sensor-id=%d !"
-        "video/x-raw(memory:NVMM), width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
-        "nvvidconv flip-method=%d ! "
-        "video/x-raw, width=(int)%d, height=(int)%d, format=(string)BGRx ! "
-        "videoconvert ! "
-        "video/x-raw, format=(string)BGR ! appsink"
-        % (
-            sensor_id,
-            capture_width,
-            capture_height,
-            framerate,
-            flip_method,
-            display_width,
-            display_height,
-        )
-    )
-
-image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces/*.png'
-
-#mser = cv2.MSER_create() # text를 bounding box로 표시하기 위한 MSER 알고리즘
-#regions, _ = mser.detectRegions(src_transform)
-
-
+    
 class Facerecognition:
     face_location = []
     face_encoding = []
@@ -65,7 +30,6 @@ class Facerecognition:
 
     def __init__(self):
         self.encode_faces()
-
     def encode_faces(self):
         os.chdir('C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces')
         file_names = os.listdir()
@@ -85,8 +49,8 @@ class Facerecognition:
             sys.exit()
 
         while True :
-            ret, frame = cap.read()
-                
+                        
+            ret, frame = cap.read()    
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
@@ -106,11 +70,10 @@ class Facerecognition:
                     best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
                     if match[best_match_index] :
                         name = self.known_face_names[best_match_index]
-                        match_percent = face_confidence(face_distance[best_match_index])
-                        
+                        match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name} ({match_percent})')
             self.process_current_frame = not self.process_current_frame
-
+            
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
@@ -122,27 +85,15 @@ class Facerecognition:
                 cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
             cv2.imshow('Face Recognition', frame)
-            # print(imgchar)
-            if cv2.waitKey(1) == ord('q'):
-                    break
-                    
-        cap.realease()
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                 break
+
+        cap.release()
         cv2.destroyAllWindows()
-def vv() :
-    if __name__ == '__main__' :
-        run = Facerecognition()
-        run.video()
-vv()
 
 
-""" if __name__ == '__main__' :
-        run = Facerecognition()
-        run.video() """
 
-""" p0 = Process(target=fc)
-p1 = Process(target=speak_jetson)
-p0.start()
-p1.start()
-p0.join()
-p1.join() """
-
+if __name__ == "__main__" :
+    run = Facerecognition()
+    run.video()

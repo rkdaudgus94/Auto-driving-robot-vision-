@@ -4,14 +4,8 @@ import os, sys
 import numpy as np
 import math
 import glob
-import pytesseract
-import time
-from multiprocessing import Process
-import speech_recognition as sr
-from gtts import gTTS
-import playsound
 
-# pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesseract.exe"
+
 def face_confidence(face_distance, face_match_threshold=0.6): # face_distance 값과 face_match 임계값을 설정한 사설함수
     range = (1.0 - face_match_threshold)
     linear_val = (1.0 - face_distance) / (range * 2.0)
@@ -49,11 +43,7 @@ def gstreamer_pipeline(
         )
     )
 
-image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces/*.png'
-
-#mser = cv2.MSER_create() # text를 bounding box로 표시하기 위한 MSER 알고리즘
-#regions, _ = mser.detectRegions(src_transform)
-
+image_path = r'/home/hyun/face_img/*.png'
 
 class Facerecognition:
     face_location = []
@@ -67,7 +57,7 @@ class Facerecognition:
         self.encode_faces()
 
     def encode_faces(self):
-        os.chdir('C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces')
+        os.chdir('/home/hyun/face_img')
         file_names = os.listdir()
         for file_name in file_names :
             self.known_face_names.append(os.path.splitext(file_name)[0])
@@ -78,7 +68,7 @@ class Facerecognition:
         print(self.known_face_names)
     
     def video(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 
         if not cap.isOpened() :
             print('unable to open camera')
@@ -88,27 +78,27 @@ class Facerecognition:
             ret, frame = cap.read()
                 
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
-                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+                samll_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-                rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
-                # gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
-                # imgchar = pytesseract.image_to_string(gray, lang = 'eng')
-                self.face_location = fr.face_locations(rgb_small_frame)
-                self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
+                rgb_samll_frame = samll_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경 
+
+                self.face_location = fr.face_locations(rgb_samll_frame)
+                self.face_encodings = fr.face_encodings(rgb_samll_frame, self.face_location)
 
                 self.face_names = []
                 for face_encoding in self.face_encodings: # 저장된 얼굴과 캠에서 찍힌 얼굴과 비교
                     match = fr.compare_faces(self.known_face_encoding, face_encoding, 0.55)
                     name = "???"
                     match_percent = "??.?%"
-                    face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인Coding 거리 값을 비교
+                    face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인코딩 거리 값을 비교
 
                     best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
                     if match[best_match_index] :
                         name = self.known_face_names[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])
-                        
+                    
                     self.face_names.append(f'{name} ({match_percent})')
+                
             self.process_current_frame = not self.process_current_frame
 
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
@@ -122,27 +112,13 @@ class Facerecognition:
                 cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
             cv2.imshow('Face Recognition', frame)
-            # print(imgchar)
+
             if cv2.waitKey(1) == ord('q'):
                     break
-                    
+
         cap.realease()
         cv2.destroyAllWindows()
-def vv() :
-    if __name__ == '__main__' :
-        run = Facerecognition()
-        run.video()
-vv()
 
-
-""" if __name__ == '__main__' :
-        run = Facerecognition()
-        run.video() """
-
-""" p0 = Process(target=fc)
-p1 = Process(target=speak_jetson)
-p0.start()
-p1.start()
-p0.join()
-p1.join() """
-
+if __name__ == '__main__' :
+    run = Facerecognition()
+    run.video()
