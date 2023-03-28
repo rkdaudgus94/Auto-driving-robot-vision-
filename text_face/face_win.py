@@ -22,32 +22,7 @@ def face_confidence(face_distance, face_match_threshold=0.6): # face_distance �
         value = (linear_val + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))) * 100
         return str(round(value, 2)) + '%'
 
-def gstreamer_pipeline(
-    sensor_id=0,
-    capture_width=1920,
-    capture_height=1080,
-    display_width=960,
-    display_height=540,
-    framerate=30,
-    flip_method=0,
-):
-    return (
-        "nvarguscamerasrc sensor-id=%d !"
-        "video/x-raw(memory:NVMM), width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
-        "nvvidconv flip-method=%d ! "
-        "video/x-raw, width=(int)%d, height=(int)%d, format=(string)BGRx ! "
-        "videoconvert ! "
-        "video/x-raw, format=(string)BGR ! appsink"
-        % (
-            sensor_id,
-            capture_width,
-            capture_height,
-            framerate,
-            flip_method,
-            display_width,
-            display_height,
-        )
-    )
+
 
 image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces/*.png'
 
@@ -82,6 +57,7 @@ class Facerecognition:
 
         if not cap.isOpened() :
             print('unable to open camera')
+            print('Error:', cv2.CAP_PROP_BACKEND_NAME)
             sys.exit()
 
         while True :
@@ -126,7 +102,7 @@ class Facerecognition:
             if cv2.waitKey(1) == ord('q'):
                     break
                     
-        cap.realease()
+        cap.release()
         cv2.destroyAllWindows()
 def vv() :
     if __name__ == '__main__' :
@@ -135,14 +111,4 @@ def vv() :
 vv()
 
 
-""" if __name__ == '__main__' :
-        run = Facerecognition()
-        run.video() """
-
-""" p0 = Process(target=fc)
-p1 = Process(target=speak_jetson)
-p0.start()
-p1.start()
-p0.join()
-p1.join() """
 

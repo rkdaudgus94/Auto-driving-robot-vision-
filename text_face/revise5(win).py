@@ -42,7 +42,7 @@ def gstreamer_pipeline(
         )
     )
 
-image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/코딩/2023-1-Capstone-/example/webcam/faces/*.png'
+image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces/*.png'
 
 def face_confidence(face_distance, face_match_threshold=0.6): # face_distance 값과 face_match 임계값을 설정한 사설함수
     range = (1.0 - face_match_threshold)
@@ -232,7 +232,7 @@ class Facerecognition:
         self.encode_faces()
 
     def encode_faces(self):
-        os.chdir('C:/Users/rkdau/OneDrive/바탕 화면/코딩/2023-1-Capstone-/example/webcam/faces')
+        os.chdir('C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces')
         file_names = os.listdir()
         for file_name in file_names :
             self.known_face_names.append(os.path.splitext(file_name)[0])
@@ -266,7 +266,7 @@ class Facerecognition:
                     match = fr.compare_faces(self.known_face_encoding, face_encoding, 0.55)
                     face_name = "???"
                     match_percent = "??.?%"
-                    face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인코딩 거리 값을 비교
+                    face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인Coding 거리 값을 비교
 
                     best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
                     if match[best_match_index] :
