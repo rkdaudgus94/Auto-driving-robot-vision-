@@ -47,7 +47,7 @@ def gstreamer_pipeline(
         )
     )
 
-image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/코딩/2023-1-Capstone-/example/webcam/faces/*.png'
+image_path = r'C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces/*.png'
 
 #mser = cv2.MSER_create() # text를 bounding box로 표시하기 위한 MSER 알고리즘
 #regions, _ = mser.detectRegions(src_transform)
@@ -66,7 +66,7 @@ class Facerecognition:
 
 
     def encode_faces(self):
-        os.chdir('C:/Users/rkdau/OneDrive/바탕 화면/코딩/2023-1-Capstone-/example/webcam/faces')
+        os.chdir('C:/Users/rkdau/OneDrive/바탕 화면/Coding/2023-1-Capstone-/example/webcam/faces')
         file_names = os.listdir()
         for file_name in file_names :
             self.known_face_names.append(os.path.splitext(file_name)[0])
@@ -77,58 +77,47 @@ class Facerecognition:
         print(self.known_face_names)
     
 
-
-        def face(self) :
-            cap = cv2.VideoCapture(0)
-
-            if not cap.isOpened() :
-                print('unable to open camera')
-                sys.exit()
-
-            while True :
-                ret, frame = cap.read()
-                
-                if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
-                    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-
-                rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
-                gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
-                self.face_location = fr.face_locations(rgb_small_frame)
-                self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
-
-                self.face_names = []
-                for face_encoding in self.face_encodings: # 저장된 얼굴과 캠에서 찍힌 얼굴과 비교
-                    match = fr.compare_faces(self.known_face_encoding, face_encoding, 0.55)
-                    name = "???"
-                    match_percent = "??.?%"
-                    face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인코딩 거리 값을 비교
-
-                    best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
-                    if match[best_match_index] :
-                        name = self.known_face_names[best_match_index]
-                        match_percent = face_confidence(face_distance[best_match_index])
-                        nn(name)
-
-                    self.face_names.append(f'{name} ({match_percent})')
-                    time.sleep(1.5)
-                self.process_current_frame = not self.process_current_frame
-
-                for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
-                    top *= 4
-                    right *= 4
-                    bottom *= 4
-                    left *= 4
-
-                    cv2.rectangle(frame, (left, top), (right, bottom), (0,255,0), 1)
-                    cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,255,0), cv2.FILLED)
-                    cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
-
-                cv2.imshow('Face Recognition', frame)
-                if cv2.waitKey(1) == ord('q'):
-                        break
-
-            cap.realease()
-            cv2.destroyAllWindows()
+    def video(self) :
+        cap = cv2.VideoCapture(0)
+        if not cap.isOpened() :
+            print('unable to open camera')
+            sys.exit()
+        while True :
+            ret, frame = cap.read()
+            
+            if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
+                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+            rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
+            gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
+            self.face_location = fr.face_locations(rgb_small_frame)
+            self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
+            self.face_names = []
+            for face_encoding in self.face_encodings: # 저장된 얼굴과 캠에서 찍힌 얼굴과 비교
+                match = fr.compare_faces(self.known_face_encoding, face_encoding, 0.55)
+                name = "???"
+                match_percent = "??.?%"
+                face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인코딩 거리 값을 비교
+                best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
+                if match[best_match_index] :
+                    name = self.known_face_names[best_match_index]
+                    match_percent = face_confidence(face_distance[best_match_index])
+                    nn(name)
+                self.face_names.append(f'{name} ({match_percent})')
+                time.sleep(1.5)
+            self.process_current_frame = not self.process_current_frame
+            for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
+                top *= 4
+                right *= 4
+                bottom *= 4
+                left *= 4
+                cv2.rectangle(frame, (left, top), (right, bottom), (0,255,0), 1)
+                cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,255,0), cv2.FILLED)
+                cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
+            cv2.imshow('Face Recognition', frame)
+            if cv2.waitKey(1) == ord('q'):
+                    break
+        cap.release()
+        cv2.destroyAllWindows()
 
         def text(self) :
             cap = cv2.VideoCapture(0)

@@ -73,7 +73,7 @@ class Facerecognition:
                         match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name} ({match_percent})')
             self.process_current_frame = not self.process_current_frame
-            
+            yield self.face_names
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
@@ -94,6 +94,8 @@ class Facerecognition:
 
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     run = Facerecognition()
-    run.video()
+    for names in run.video():
+        # 이곳에서 names 변수를 사용하여 원하는 작업을 수행하세요.
+        print(names)

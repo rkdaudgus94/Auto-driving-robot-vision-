@@ -163,14 +163,20 @@ def respeak():
         playsound.playsound("voice2.mp3")
         return respeak()
     
-def main() :
-    while True :
+def main():
+    r_name_list = None  # 초기화
+    while True:
         name = speak_jetson()
-        if name :
+        if name:
             r_name_list = name
-            print("r_name : ", r_name_list)
-        else :
+            print("r_name: ", r_name_list)
+        else:
             break
+    return r_name_list
+
+def get_r_name_list():
+    r_name_list = main()  
+    return r_name_list
 
 if __name__ == "__main__" :
     main()
