@@ -23,6 +23,7 @@ def mul_vo():
 
 def mul_fa():
      run = Facerecognition()
+     print("1111111111111111111111111111111111111111111")
      run.video(callback= process_names)
 
 if __name__ == "__main__":
