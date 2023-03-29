@@ -45,7 +45,11 @@ def face_confidence(face_distance, face_match_threshold=0.6): # face_distance �
     else:
         value = (linear_val + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))) * 100
         return str(round(value, 2)) + '%'
-    
+
+def process_names(names):
+    # 이곳에서 names 변수를 사용하여 원하는 작업을 수행하세요.
+    print(names)
+
 class Facerecognition:
     face_location = []
     face_encoding = []
@@ -54,7 +58,7 @@ class Facerecognition:
     known_face_names = []
     process_current_frame = True
 
-    def __init__(self):
+    def __init__(self, callback=None):
         self.encode_faces()
     def encode_faces(self):
         os.chdir('/home/hyun/face_img')
@@ -67,7 +71,7 @@ class Facerecognition:
             self.known_face_encoding.append(face_encoding)
         print(self.known_face_names)
     
-    def video(self):
+    def video(self, callback= None):
         cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 
         if not cap.isOpened() :
@@ -99,7 +103,10 @@ class Facerecognition:
                         match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name} ({match_percent})')
             self.process_current_frame = not self.process_current_frame
-            yield self.face_names
+            if callback:
+                callback(self.face_names)
+
+            # yield self.face_names
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
@@ -122,6 +129,4 @@ class Facerecognition:
 
 if __name__ == "__main__":
     run = Facerecognition()
-    for names in run.video():
-        # 이곳에서 names 변수를 사용하여 원하는 작업을 수행하세요.
-        print(names)
+    run.video()
