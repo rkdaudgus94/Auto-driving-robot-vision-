@@ -1,4 +1,4 @@
-from face_recognition import Facerecognition
+from multi_face import Facerecognition
 from multi_voice import get_r_name_list
 
 def process_names(names):
