@@ -106,7 +106,7 @@ class Facerecognition:
             self.process_current_frame = not self.process_current_frame
 
 
-            yield name
+            yield self.face_names
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
