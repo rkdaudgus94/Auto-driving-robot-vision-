@@ -60,6 +60,7 @@ class Facerecognition:
 
     def __init__(self, callback=None):
         self.encode_faces()
+
     def encode_faces(self):
         os.chdir('/home/hyun/face_img')
         file_names = os.listdir()
@@ -103,10 +104,9 @@ class Facerecognition:
                         match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name} ({match_percent})')
             self.process_current_frame = not self.process_current_frame
-            if callback:
-                callback(self.face_names)
 
-            # yield self.face_names
+
+            yield self.face_names
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
@@ -127,6 +127,6 @@ class Facerecognition:
 
 
 
-if __name__ == "__main__":
+""" if __name__ == "__main__":
     run = Facerecognition()
-    run.video()
+    for names in run.video(face_names) """
