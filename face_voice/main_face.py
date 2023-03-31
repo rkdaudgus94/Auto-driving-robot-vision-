@@ -7,7 +7,7 @@ def main():
     face_recognition = Facerecognition()
 
     # 별도의 프로세스에서 video 함수를 실행합니다.
-    p = Process(target=face_recognition.video, args=(q,))
+    p = Process(target=face_recognition.video(), args=(q,))
     p.start()
 
     try:
