@@ -1,12 +1,11 @@
 import cv2
-import face_recognition as fr
 import os, sys
 import numpy as np
 import math
 import glob
 import pytesseract
 import time
-
+import face_recognition as fr
 
 def gstreamer_pipeline(
     sensor_id=0,
@@ -69,6 +68,7 @@ class Facerecognition:
         print(self.known_face_names)
     
     def video(self, callback= None):
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
         cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 
         if not cap.isOpened() :
