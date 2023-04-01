@@ -2,7 +2,6 @@ from multiprocessing import Process, Queue
 from queue import Empty
 from multi_face import Facerecognition
 from multi_voice import get_r_name_list
-import time
 
 def main() :
     p0 = Process(target = mu_fa())
@@ -15,11 +14,12 @@ def main() :
     p1.join()
 
 def mu_fa():
+    time = 0
     face_recognition = Facerecognition()
     for names in face_recognition.video() :
-        time.sleep(2)
-        print(names)
-
+        if time % 5 == 0 :
+            print(names)
+        time += 1
 def mu_vo():
     r_name_list = get_r_name_list()
 
