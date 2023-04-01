@@ -17,7 +17,7 @@ def mu_fa():
     time = 0
     face_recognition = Facerecognition()
     for names in face_recognition.video() :
-        if names != '' :
+        if names != [] :
             print(names)
         time += 1
 def mu_vo():
