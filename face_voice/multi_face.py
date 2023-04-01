@@ -1,12 +1,11 @@
 import cv2
-import face_recognition as fr
 import os, sys
 import numpy as np
 import math
 import glob
 import pytesseract
 import time
-import os
+import face_recognition as fr
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 def gstreamer_pipeline(
