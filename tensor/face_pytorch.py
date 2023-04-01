@@ -45,10 +45,10 @@ while True:
 
     boxes, _ = mtcnn.detect(frame)
 
-    if boxes is not None:
+    """ if boxes is not None:
         for box in boxes:
             x1, y1, x2, y2 = box.astype(int)
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
+            cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2) """
 
     cv2.imshow('Face Recognition', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
