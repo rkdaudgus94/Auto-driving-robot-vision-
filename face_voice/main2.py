@@ -1,11 +1,12 @@
 from multiprocessing import Process, Queue
+import threading
 from queue import Empty
 from multi_face import Facerecognition, gstreamer_pipeline, face_confidence
 from multi_voice import get_r_name_list
 
 def main() :
-    p0 = Process(target = mu_vo)
-    p1 = Process(target = mu_fa)
+    p0 = Process(threading.Thread(target=mu_fa))
+    p1 = Process(threading.Thread(target=mu_fa))
 
     p0.start()
     p1.start()
