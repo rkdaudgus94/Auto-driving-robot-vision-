@@ -1,6 +1,6 @@
 from multiprocessing import Process, Queue
 from queue import Empty
-from multi_face import Facerecognition
+from multi_face import Facerecognition, gstreamer_pipeline, face_confidence
 from multi_voice import get_r_name_list
 
 def main() :
