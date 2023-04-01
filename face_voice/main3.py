@@ -1,6 +1,6 @@
 import multiprocessing
-from face_recognition_process import Facerecognition
-from speech_recognition_process import main as speech_main
+from multi_face2 import Facerecognition
+from multi_voice import get_r_name_list
 
 def face_recognition_process():
     fr_instance = Facerecognition()
