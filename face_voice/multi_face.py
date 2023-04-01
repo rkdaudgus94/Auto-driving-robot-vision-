@@ -46,10 +46,6 @@ def face_confidence(face_distance, face_match_threshold=0.6): # face_distance �
         value = (linear_val + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))) * 100
         return str(round(value, 2)) + '%'
 
-def process_names(names):
-    # 이곳에서 names 변수를 사용하여 원하는 작업을 수행하세요.
-    print(names)
-
 class Facerecognition:
     face_location = []
     face_encoding = []
