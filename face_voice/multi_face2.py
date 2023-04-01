@@ -89,7 +89,7 @@ class Facerecognition:
 
                 self.face_names = []
                 for face_encoding in self.face_encodings: # 저장된 얼굴과 캠에서 찍힌 얼굴과 비교
-                    match = fr.compare_faces(self.known_face_encoding, face_encoding, 0.55)
+                    match = fr.compare_faces(self.known_face_encoding, face_encoding)
                     name = "???"
                     match_percent = "??.?%"
                     face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인Coding 거리 값을 비교
