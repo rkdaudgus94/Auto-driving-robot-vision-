@@ -97,9 +97,9 @@ class Facerecognition:
                     best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
                     if match[best_match_index] :
                         name = self.known_face_names[best_match_index]
-                        match_percent = face_confidence(face_distance[best_match_index])                          
-                    self.face_names.append(f'{name} ({match_percent})')
-            self.process_current_frame = not self.process_current_frame
+                        # match_percent = face_confidence(face_distance[best_match_index])                          
+                    self.face_names.append(f'{name}')
+            # self.process_current_frame = not self.process_current_frame
 
 
             yield self.face_names
@@ -111,7 +111,7 @@ class Facerecognition:
 
                 cv2.rectangle(frame, (left, top), (right, bottom), (0,255,0), 1)
                 cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,255,0), cv2.FILLED)
-                cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
+                # cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
             cv2.imshow('Face Recognition', frame)
 
