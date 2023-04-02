@@ -10,7 +10,7 @@ def speech_recognition_process():
     r_name_list = get_r_name_list()
 
 if __name__ == "__main__":
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    
     face_process = multiprocessing.Process(target=face_recognition_process)
     speech_process = multiprocessing.Process(target=speech_recognition_process)
 
