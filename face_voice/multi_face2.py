@@ -68,7 +68,6 @@ class Facerecognition:
         print(self.known_face_names)
     
     def video(self, callback= None):
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
         cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 
         if not cap.isOpened() :
@@ -79,9 +78,9 @@ class Facerecognition:
                         
             ret, frame = cap.read()    
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
-                # small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-                rgb_small_frame = frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
+                rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
                 # gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
                 # imgchar = pytesseract.image_to_string(gray, lang = 'eng')
                 self.face_location = fr.face_locations(rgb_small_frame)
