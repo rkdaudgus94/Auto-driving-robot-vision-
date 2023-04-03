@@ -1,6 +1,6 @@
 from multiprocessing import Process, Queue
 from queue import Empty
-from multi_face import Facerecognition
+from multi_face2 import Facerecognition
 
 def main():
     face_recognition = Facerecognition()
