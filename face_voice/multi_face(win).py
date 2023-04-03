@@ -68,7 +68,7 @@ class Facerecognition:
         print(self.known_face_names)
         print("3")
     
-    def video(self, callback= None):
+    def video(self):
         cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
 
         if not cap.isOpened() :
