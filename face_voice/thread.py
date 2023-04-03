@@ -22,5 +22,7 @@ def main():
     thread2.start()
     print("done!")
 
+    thread1.join()
+    thread2.join()
 if __name__ == "__main__":
     main()
