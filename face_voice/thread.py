@@ -7,7 +7,6 @@ from multi_face2 import Facerecognition
 def func1(add):
         fr_instance = Facerecognition()
         fr_instance.video()
-        time.sleep(1)
 
 def func2(add):
     r_name_list = get_r_name_list()
