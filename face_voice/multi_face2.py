@@ -66,7 +66,7 @@ class Facerecognition:
             face_encoding = fr.face_encodings(face_image)[0]
             self.known_face_encoding.append(face_encoding)
         print(self.known_face_names)
-        print("3")
+
     
     def video(self, callback= None):
         cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
@@ -100,7 +100,7 @@ class Facerecognition:
                         name = self.known_face_names[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name}')
-                # self.process_current_frame = not self.process_current_frame
+                self.process_current_frame = not self.process_current_frame
 
 
             yield self.face_names
@@ -112,7 +112,7 @@ class Facerecognition:
 
                 cv2.rectangle(frame, (left, top), (right, bottom), (0,255,0), 1)
                 cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,255,0), cv2.FILLED)
-                # cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
+                cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
             cv2.imshow('Face Recognition', frame)
 
