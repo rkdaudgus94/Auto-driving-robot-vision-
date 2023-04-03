@@ -99,7 +99,7 @@ class Facerecognition:
                     best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
                     if match[best_match_index] :
                         name = self.known_face_names[best_match_index]
-                        # match_percent = face_confidence(face_distance[best_match_index])                          
+                        match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name}')
                 self.process_current_frame = not self.process_current_frame
 
