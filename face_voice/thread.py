@@ -6,9 +6,10 @@ from multi_face2 import Facerecognition
 # 스레드 테스트를 위해 def 2개 생성
 def func1(add):
     face_recognition = Facerecognition()
-
+    time1 = 0
     for names in face_recognition.video() :
-        print(names)
+        if time1 == 15 & names != [] :
+           time1 += 1
 
 def func2(add):
     r_name_list = get_r_name_list()
