@@ -8,8 +8,9 @@ def func1(add):
     face_recognition = Facerecognition()
     time1 = 0
     for names in face_recognition.video() :
-        if time1 == 15 & names != '' :
+        if time1 == 15 :
            time1 += 1
+           print(names)
 
 def func2(add):
     r_name_list = get_r_name_list()
