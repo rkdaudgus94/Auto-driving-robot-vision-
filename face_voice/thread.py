@@ -5,8 +5,10 @@ import os
 from multi_face2 import Facerecognition
 # 스레드 테스트를 위해 def 2개 생성
 def func1(add):
-        fr_instance = Facerecognition()
-        fr_instance.video()
+    face_recognition = Facerecognition()
+
+    for names in face_recognition.video() :
+        print(names)
 
 def func2(add):
     r_name_list = get_r_name_list()
