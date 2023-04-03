@@ -100,7 +100,7 @@ class Facerecognition:
                         name = self.known_face_names[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name}')
-                self.process_current_frame = not self.process_current_frame
+                # self.process_current_frame = not self.process_current_frame
 
 
             yield self.face_names
