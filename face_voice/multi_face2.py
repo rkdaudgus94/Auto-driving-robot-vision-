@@ -66,6 +66,7 @@ class Facerecognition:
             face_encoding = fr.face_encodings(face_image)[0]
             self.known_face_encoding.append(face_encoding)
         print(self.known_face_names)
+        print("3")
     
     def video(self, callback= None):
         cap = cv2.VideoCapture(gstreamer_pipeline(flip_method = 0), cv2.CAP_GSTREAMER)
