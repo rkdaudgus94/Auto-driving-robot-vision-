@@ -14,8 +14,8 @@ def func2(add):
 
 def main():
     #스레드 정의
-    thread1 = threading.Thread(target=func2, args=('1'))
-    thread2 = threading.Thread(target=func1, args=('2'))
+    thread1 = threading.Thread(target=func2, args=('1',))
+    thread2 = threading.Thread(target=func1, args=('2',))
 
     #스레드 시작
     thread1.start()
