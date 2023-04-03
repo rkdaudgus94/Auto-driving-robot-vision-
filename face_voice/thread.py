@@ -1,16 +1,17 @@
 import threading
 import time
-
+from multi_voice import get_r_name_list
+import os
+from multi_face2 import Facerecognition
 # 스레드 테스트를 위해 def 2개 생성
 def func1(add):
-    while(True):
-        print("작업 1111", add)
+        fr_instance = Facerecognition()
+        fr_instance.video()
         time.sleep(1)
 
 def func2(add):
-    while(True):
-        print("작업 2222", add)
-        time.sleep(1)
+    r_name_list = get_r_name_list()
+    time.sleep(1)
 
 def main():
     #스레드 정의
