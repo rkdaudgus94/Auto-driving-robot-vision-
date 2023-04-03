@@ -75,8 +75,10 @@ class Facerecognition:
             sys.exit()
 
         while True :
-                        
-            ret, frame = cap.read()    
+            print("1")            
+            ret, frame = cap.read()
+            print("2")            
+
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
