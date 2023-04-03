@@ -8,7 +8,7 @@ def func1(add):
     face_recognition = Facerecognition()
     time1 = 0
     for names in face_recognition.video() :
-        if time1 == 15 & names != [] :
+        if time1 == 15 & names != '' :
            time1 += 1
 
 def func2(add):
