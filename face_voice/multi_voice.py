@@ -170,9 +170,9 @@ def respeak():
         playsound.playsound(wav_path)
         return respeak()
     
-def main():
-    r_name_list = None  # 초기화
+def main(): 
     while True:
+        name = []
         name = speak_jetson()
         if name != [] :
             r_name_list = name
