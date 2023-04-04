@@ -76,7 +76,7 @@ class Facerecognition:
             sys.exit()
 
         while True :            
-            ret, frame = cap.read()
+            ret, frame = cap.read() # fps  = frame per second 60 frame = 1초 60장을
             
 
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
@@ -100,7 +100,7 @@ class Facerecognition:
                         name = self.known_face_names[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name}')
-                # self.process_current_frame = not self.process_current_frame
+                self.process_current_frame = not self.process_current_frame
 
 
             yield self.face_names
@@ -128,3 +128,5 @@ if __name__ == "__main__":
     run = Facerecognition()
     for names in run.video() :
         print(names)
+
+
