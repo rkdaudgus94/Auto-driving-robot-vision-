@@ -157,6 +157,7 @@ def respeak():
         print('장소는', r_place)
                 
         # r_name에 단어가 있으면 객체 인식 코드로 이동
+        
         return r_name if r_name else respeak()
             
     # 음성 인식 실패한 경우
@@ -173,7 +174,7 @@ def main():
     r_name_list = None  # 초기화
     while True:
         name = speak_jetson()
-        if name:
+        if name != [] :
             r_name_list = name
             print("r_name: ", r_name_list)
         else:
