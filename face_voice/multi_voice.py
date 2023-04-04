@@ -177,6 +177,7 @@ def main():
         if name != [] :
             r_name_list = name
             print("r_name: ", r_name_list)
+            print(type(r_name_list))
         else:
             break
     return r_name_list
