@@ -11,9 +11,8 @@ lock = threading.Lock()
 shared_results = {"func1": None, "func2": None}
 
 def func1(add):
-    face_recognition = Facerecognition()
-    time1 = 0
-    while True:
+        face_recognition = Facerecognition()
+        time1 = 0
         for names in face_recognition.video():
             if time1 == 15:
                 time1 += 1
@@ -21,9 +20,7 @@ def func1(add):
                     shared_results["func1"] = names
 
 def func2(add):
-    while True:
         r_name_list = get_r_name_list()
-        time.sleep(1)
         with lock:
             shared_results["func2"] = r_name_list
 
