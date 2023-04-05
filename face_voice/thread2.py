@@ -18,7 +18,7 @@ def func1(add):
     face_recognition = Facerecognition()
     time1 = 0
     for names in face_recognition.video():
-        if time1 == 15:
+        if time1 == 5:
             time1 += 1
             with lock:
                 compare_values(names, r_name_list)
@@ -29,7 +29,6 @@ def func2(add):
         r_name_list = get_r_name_list()
         with lock:
             compare_values(r_name_list, r_name_list)
-        time.sleep(1)
 
 def main():
     # 스레드 정의
