@@ -9,6 +9,8 @@ lock = threading.Lock()
 
 def compare_values(value1, value2):
     if value1 is not None and value2 is not None:
+        print("value1 :", value1)
+        print("value2 :", value2)
         if value1 == value2:
             print("The values match!")
         else:
@@ -31,6 +33,7 @@ def func2(add):
         r_name_list = get_r_name_list()
         with lock:
             compare_values(r_name_list, r_name_list)
+        time(1.5)
 
 def main():
     # 스레드 정의
