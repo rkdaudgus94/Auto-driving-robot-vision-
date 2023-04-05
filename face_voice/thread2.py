@@ -33,7 +33,7 @@ def func2(add):
         r_name_list = get_r_name_list()
         with lock:
             compare_values(r_name_list, r_name_list)
-        time(1.5)
+        
 
 def main():
     # 스레드 정의
