@@ -13,7 +13,7 @@ def func1(add):
     face_recognition = Facerecognition()
     time1 = 0
     for names in face_recognition.video():
-        if (time1 % 10 == 0) & (shared_r_name_list):
+        if (time1 % 10 == 0) and (shared_r_name_list):
             with lock:
                 if names == shared_r_name_list:
                     print("일치합니다")
