@@ -19,7 +19,7 @@ def func1(add):
                     print("일치합니다")
 
         elif (time1 % 11 == 0) :
-            print(names)
+            print(names[0])
             print(type(names))
         time1 += 1
 
