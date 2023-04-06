@@ -13,14 +13,16 @@ def func1(add):
     face_recognition = Facerecognition()
     time1 = 0
     for names in face_recognition.video():
+        str_names = ''.join(str(element) for element in names)
         if (time1 % 10 == 0) and (shared_r_name_list):
             with lock:
-                if names == shared_r_name_list:
+                if str_names == shared_r_name_list:
                     print("일치합니다")
 
         elif (time1 % 11 == 0) :
-            print(names[0])
-            print(type(names))
+            print(str_names)
+
+            print(type(str_names))
         time1 += 1
 
 def func2(add):
