@@ -14,7 +14,7 @@ def func1(add):
     time1 = 0
     for names in face_recognition.video():
         str_names = ''.join(str(element) for element in names)
-        if (time1 % 10 == 0) and (shared_r_name_list):
+        if (time1 % 15 == 0) and (shared_r_name_list):
             with lock:
                 if str_names == shared_r_name_list:
                     print("일치합니다")
