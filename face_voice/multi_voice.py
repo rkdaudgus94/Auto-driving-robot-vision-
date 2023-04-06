@@ -176,15 +176,13 @@ def main_voice():
         name = speak_jetson()
         if name != [] :
             r_name_list = name
-            #print("r_name: ", r_name_list)
-            #print(type(r_name_list))
+            print("r_name: ", r_name_list)
+            yield r_name_list
         else:
             break
-    return r_name_list
-
 """ def get_r_name_list():
     r_name_list = main()  
     return r_name_list """
 
 if __name__ == "__main__" :
-    main()
+    main_voice()
