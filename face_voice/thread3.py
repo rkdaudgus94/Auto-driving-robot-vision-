@@ -21,17 +21,15 @@ def func1(add):
 
         elif (time1 % 11 == 0) :
             print(str_names)
-
-            print(type(str_names))
         time1 += 1
 
 def func2(add):
     global shared_r_name_list
     for r_name_list in get_r_name_list() :
         print (r_name_list)
-        print (type(r_name_list))
         with lock:
-            shared_r_name_list = r_name_list
+            if r_name_list != [] :
+                shared_r_name_list = r_name_list
     time.sleep(1)
 
 def main():

@@ -3,6 +3,9 @@ import time
 from multi_voice import get_r_name_list
 import os
 from multi_face2 import Facerecognition
+
+lock = threading.Lock() # 공유 변수
+
 # 스레드 테스트를 위해 def 2개 생성
 def func1(add):
     face_recognition = Facerecognition()

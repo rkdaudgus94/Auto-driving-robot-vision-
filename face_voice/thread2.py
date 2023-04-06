@@ -21,7 +21,6 @@ def func1(add):
     time1 = 0
     for names in face_recognition.video():
         if time1 == 5:
-            
             print(names)
             with lock:
                 compare_values(names, r_name_list)
@@ -31,6 +30,7 @@ def func2(add):
     global r_name_list
     while True:
         r_name_list = get_r_name_list()
+        print(r_name_list)
         with lock:
             compare_values(r_name_list, r_name_list)
         

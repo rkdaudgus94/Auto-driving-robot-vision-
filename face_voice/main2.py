@@ -18,10 +18,10 @@ def mu_fa():
     time = 0
     face_recognition = Facerecognition()
     face_recognition.video()
-    """ for names in face_recognition.video() :
+    for names in face_recognition.video() :
         if (names != []) & (time == 15) :
             print(names)
-        time += 1 """
+        time += 1
 def mu_vo():
     r_name_list = get_r_name_list()
 

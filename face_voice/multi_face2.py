@@ -124,9 +124,9 @@ class Facerecognition:
 
 
 
-if __name__ == "__main__":
+""" if __name__ == "__main__":
     run = Facerecognition()
     for names in run.video() :
-        print(names)
+        print(names) """
 
 
