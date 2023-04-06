@@ -8,7 +8,9 @@ def func1(add):
     face_recognition = Facerecognition()
     time1 = 0
     for names in face_recognition.video() :
-        print(names)
+        if time1 % 5 == 0 :
+            print(names)
+        time1 += 1
 
 def func2(add):
     r_name_list = get_r_name_list()
@@ -23,6 +25,9 @@ def main():
     thread1.start()
     thread2.start()
     print("done!")
+
+    thread1.join()
+    thread2.join()
 
 if __name__ == "__main__":
     main()
