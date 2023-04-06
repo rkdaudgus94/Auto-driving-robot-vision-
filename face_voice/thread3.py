@@ -1,6 +1,6 @@
 import threading
 import time
-from multi_voice import get_r_name_list
+from multi_voice import main_voice
 import os
 from multi_face2 import Facerecognition
 
@@ -25,7 +25,7 @@ def func1(add):
 
 def func2(add):
     global shared_r_name_list
-    for r_name_list in get_r_name_list() :
+    for r_name_list in main_voice() :
         print (r_name_list)
         with lock:
             if r_name_list != [] :
