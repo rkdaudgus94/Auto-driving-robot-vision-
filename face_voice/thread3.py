@@ -11,17 +11,19 @@ def func1(add):
     face_recognition = Facerecognition()
     time1 = 0
     for names in face_recognition.video():
-        if time1 % 10 == 0:
+        if (time1 % 10 == 0) & (shared_r_name_list):
             with lock:
                 if names == shared_r_name_list:
-                    print("The values match!")
-                else:
-                    print("The values do not match!")
+                    print("일치합니다")
+                    
+        elif (time1 % 11 == 0) :
+            print(names)
         time1 += 1
 
 def func2(add):
     global shared_r_name_list
     for r_name_list in get_r_name_list() :
+        print (r_name_list)
         with lock:
             shared_r_name_list = r_name_list
     time.sleep(1)
