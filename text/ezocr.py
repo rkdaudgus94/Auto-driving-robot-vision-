@@ -29,7 +29,7 @@ def gstreamer_pipeline(
     )
 
 cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
-reader = easyocr.Reader(['ko','en'], gpu=False)
+reader = easyocr.Reader(['ko','en'], gpu = True)
 
 if cap.isOpened() :
     while True :
