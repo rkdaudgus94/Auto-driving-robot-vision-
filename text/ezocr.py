@@ -31,13 +31,13 @@ def gstreamer_pipeline(
 cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
 reader = easyocr.Reader(['ko','en'], gpu = True)
 
-if cap.isOpened() :
-    while True :
-        ret, frame = cap.read()
 
+while True :
+        ret, frame = cap.read()
+        cv2.imshow('frame', frame)
         # Check if the frame is valid
         text = reader.readtext(frame, detail=0)
         print(text)
         if cv2.waitKey(1) & 0xFF == 27 :
                 break
-        cv2.imshow('frame', frame)
+        
