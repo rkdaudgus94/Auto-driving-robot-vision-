@@ -19,7 +19,7 @@ def func1(name):
             with lock:
                 if str_names == shared_r_name_list:
                     print("일치합니다")
-        cv2.imwrite('captured_frame.jpg', frame)  #  사진 기능 captured_frame : 저장할 이름
+        # cv2.imwrite('captured_frame.jpg', frame)  # 사진 기능 captured_frame : 저장할 이름
 
 def func2(voice):
     global shared_r_name_list
