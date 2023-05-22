@@ -3,7 +3,6 @@ import os, sys
 import numpy as np
 import math
 import glob
-import pytesseract
 import time
 import face_recognition as fr
 

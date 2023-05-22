@@ -1,6 +1,7 @@
 import threading
 import time
 from multi_voice import main_voice
+import cv2
 import os
 from multi_face import Facerecognition
 
