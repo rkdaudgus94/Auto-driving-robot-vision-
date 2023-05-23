@@ -32,8 +32,8 @@ def func2(voice):
 
 def main():
     #스레드 정의
-    thread1 = threading.Thread(target=func1, args=(True))
-    thread2 = threading.Thread(target=func2, args=(True))
+    thread1 = threading.Thread(target=func1, args=(True,))
+    thread2 = threading.Thread(target=func2, args=(True,))
 
     #스레드 시작
     thread1.start()
