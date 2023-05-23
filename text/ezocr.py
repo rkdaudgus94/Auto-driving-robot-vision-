@@ -32,16 +32,17 @@ cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
 reader = easyocr.Reader(['ko','en'], gpu = True)
 
 
+
 while True :
-        ret, frame = cap.read()
-        if ret :
-            image_path = cv2.imwrite("D:/text/saved_img.png")
-            image = cv2.imread(image_path)
-            cv2.imshow('frame', frame)
-            # Check if the frame is valid
-            text = reader.readtext(image, detail=0)
-            print(text)
-            if cv2.waitKey(1) & 0xFF == 27 :
-                break
-        
+    ret, frame = cap.read()
+    if ret :
+        image_path = "/home/jetson/image.png"
+        cv2.imwrite(image_path, frame)
+        image = cv2.imread(image_path)
+        cv2.imshow('frame', frame)
+        # Check if the frame is valid
+        text = reader.readtext(image, detail=0)
+        print(text)
+        if cv2.waitKey(1) & 0xFF == 27 :
+            break
         
