@@ -78,13 +78,9 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D OPENCV_ENABLE_NONFREE=ON \
 -D INSTALL_C_EXAMPLES=OFF \
 -D INSTALL_PYTHON_EXAMPLES=OFF \
--D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages \
+-D PYTHON3_PACKAGES_PATH=/home/hyun/.local/lib/python3.7/site-packages \
 -D OPENCV_GENERATE_PKGCONFIG=ON \
 -D BUILD_EXAMPLES=OFF \
--D PYTHON3_EXECUTABLE=/usr/bin/python3.8 \
--D PYTHON3_INCLUDE_DIR=/usr/include/python3.8 \
--D PYTHON3_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.8.so \
--D PYTHON3_PACKAGES_PATH=/usr/lib/python3.8/dist-packages \
 ..
 
 # run make
