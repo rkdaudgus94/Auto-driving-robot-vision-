@@ -28,7 +28,6 @@ def func2(voice):
         with lock:
             if r_name_list != [] :
                 shared_r_name_list = r_name_list
-    time.sleep(1)
 
 def main():
     #스레드 정의
