@@ -81,7 +81,7 @@ class Facerecognition:
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-                # rgb_small_frame = small_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경
+                # rgb_small_frame = small_frame[:, :, ::-1] # bgr => rgb
                 rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
                 # gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
                 # imgchar = pytesseract.image_to_string(gray, lang = 'eng')
