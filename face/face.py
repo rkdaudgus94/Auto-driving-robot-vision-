@@ -80,7 +80,7 @@ class Facerecognition:
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 samll_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-                rgb_samll_frame = samll_frame[:, :, ::-1] # opencv의 bgr => rgb로 변경 
+                rgb_samll_frame = cv2.cvtColor(samll_frame, cv2.COLOR_BGR2RGB) # opencv의 bgr => rgb로 변경 
 
                 self.face_location = fr.face_locations(rgb_samll_frame)
                 self.face_encodings = fr.face_encodings(rgb_samll_frame, self.face_location)
