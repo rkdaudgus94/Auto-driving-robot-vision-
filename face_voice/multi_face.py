@@ -32,7 +32,7 @@ def gstreamer_pipeline(
             display_height,
         )
     )
-image_path = r'/home/hyun/face_img/*.png'
+image_path = r'/home/hyeun/face_img/*.png'
 
 def face_confidence(face_distance, face_match_threshold=0.6): # face_distance 값과 face_match 임계값을 설정한 사설함수
     range = (1.0 - face_match_threshold)
@@ -56,7 +56,7 @@ class Facerecognition:
         self.encode_faces()
 
     def encode_faces(self):
-        os.chdir('/home/hyun/face_img')
+        os.chdir('/home/hyeun/face_img')
         file_names = os.listdir()
         for file_name in file_names :
             self.known_face_names.append(os.path.splitext(file_name)[0])

@@ -43,7 +43,7 @@ def speak_jetson():
                 print("네! 부르셨나요?")
                 txt = "네! 부르셨나요?"
                 tts_kr = gTTS(txt, lang = 'ko', slow = False)
-                wav_path = os.path.join("/home/hyun/2023-1-Capstone-/face_voice", "voice.wav")
+                wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
                 tts_kr.save(wav_path)
                 playsound.playsound(wav_path)
                 
@@ -90,7 +90,7 @@ def respeak():
         print(text + "라고 말했습니다.")
         txt = text + "라고 말했습니다."
         tts_kr = gTTS(txt, lang = 'ko', slow = False)
-        wav_path = os.path.join("/home/hyun/2023-1-Capstone-/face_voice", "voice.wav")
+        wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
         tts_kr.save(wav_path)
         playsound.playsound(wav_path)
 
