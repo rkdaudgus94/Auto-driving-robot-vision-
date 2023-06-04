@@ -43,7 +43,7 @@ def gstreamer_pipeline(
         )
     )
 
-image_path = r'/home/hyun/face_img/*.png'
+image_path = r'/home/hyeun/face_img/*.png'
 
 class Facerecognition:
     face_location = []
@@ -57,7 +57,7 @@ class Facerecognition:
         self.encode_faces()
 
     def encode_faces(self):
-        os.chdir('/home/hyun/face_img')
+        os.chdir('/home/hyeun/face_img')
         file_names = os.listdir()
         for file_name in file_names :
             self.known_face_names.append(os.path.splitext(file_name)[0])
