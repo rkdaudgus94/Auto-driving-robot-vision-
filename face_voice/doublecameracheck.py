@@ -3,9 +3,9 @@ import cv2
 def gstreamer_pipeline(sensor_id=0):
     return (
         f"nvarguscamerasrc sensor-id={sensor_id} ! "
-        "video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12, framerate=(fraction)30/1 ! "
+        "video/x-raw(memory:NVMM), width=(int)1280, height=(int)720, format=(string)NV12, framerate=(fraction)15/1 ! "
         "nvvidconv flip-method=0 ! "
-        "video/x-raw, width=(int)960, height=(int)540, format=(string)BGRx ! "
+        "video/x-raw, width=(int)640, height=(int)360, format=(string)BGRx ! "
         "videoconvert ! "
         "video/x-raw, format=(string)BGR ! appsink"
     )
