@@ -18,6 +18,10 @@ def func1(name):
         str_names = ''.join(str(element) for element in names)
         str_location = ''.join(str(element1) for element1 in location)
         complete_count += 1
+        
+        if complete_count % 20 == 0 :
+            print("location : ", str_location)
+
         if shared_r_name_list or shared_r_locate:
             with lock:
                 if (str_names == shared_r_name_list) and (complete_count % 20 == 0):
