@@ -21,8 +21,8 @@ def camera0() :
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-        cap0.release()
-        cv2.destroyAllWindows()    
+    cap0.release()
+    cv2.destroyAllWindows()    
 def camera1() :
 
     # 카메라 1
@@ -33,8 +33,8 @@ def camera1() :
             cv2.imshow('Camera 1', frame1)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-        cap1.release()
-        cv2.destroyAllWindows()
+    cap1.release()
+    cv2.destroyAllWindows()
 
 def main():
     #스레드 정의
