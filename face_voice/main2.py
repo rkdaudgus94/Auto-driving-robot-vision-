@@ -17,6 +17,7 @@ def func1(name):
     for names, location in face_recognition.video():
         str_names = ''.join(str(element) for element in names)
         str_location = ''.join(str(element1) for element1 in location)
+        print("str_location :", str_location)
         if shared_r_name_list or shared_r_locate:
             with lock:
                 if str_names == shared_r_name_list:
