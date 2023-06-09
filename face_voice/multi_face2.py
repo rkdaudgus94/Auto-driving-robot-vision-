@@ -40,10 +40,10 @@ def gstreamer_pipeline(
 def color_recognition(frame) :
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    #lower_red = np.array([170, 70, 50])
-    #upper_red = np.array([180, 255, 255])
-    lower_red = np.array([0, 90, 80])
-    upper_red = np.array([10, 255, 255])
+    lower_red = np.array([170, 70, 50])
+    upper_red = np.array([180, 255, 255])
+    #lower_red = np.array([0, 90, 80])
+    #upper_red = np.array([10, 255, 255])
 
     #lower_red1 = np.array([130, 50, 50])
     #upper_red1 = np.array([160, 255, 255])
@@ -73,25 +73,33 @@ def color_recognition(frame) :
 
     for cnt_red in contours_red:
         if cv2.contourArea(cnt_red) > MIN_CONTOUR_AREA:
-            x, y, w, h = cv2.boundingRect(cnt_red)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 90, 80), 2)
-            roi_red = mask_red[y : y + h, x : x + w]
+            x_r, y_r, w_r, h_r = cv2.boundingRect(cnt_red)
+            if abs(w_r - h_r) <= 5:
+                cv2.rectangle(frame, (x_r, y_r), (x_r + w_r, y_r + h_r), (0, 0, 255), 2)
+                roi_red = mask_red[y_r : y_r + h_r, x_r : x_r + w_r]
 
     for cnt_purple in contours_purple :
         if cv2.contourArea(cnt_purple) > MIN_CONTOUR_AREA:
             x_b, y_b, w_b, h_b = cv2.boundingRect(cnt_purple)
-            cv2.rectangle(frame, (x_b, y_b), (x_b + w_b, y_b + h_b), (160, 255, 255), 2)
-            roi_purple = mask_purple[y_b:y_b + h_b, x_b:x_b + w_b]
+            if abs(w_b - h_b) <= 5:
+                cv2.rectangle(frame, (x_b, y_b), (x_b + w_b, y_b + h_b), (128, 0, 128), 2)
+                roi_purple = mask_purple[y_b:y_b + h_b, x_b:x_b + w_b]
 
     for cnt_green in contours_green :
         if cv2.contourArea(cnt_green) > MIN_CONTOUR_AREA:
             x_g, y_g, w_g, h_g = cv2.boundingRect(cnt_green)
-            cv2.rectangle(frame, (x_g, y_g), (x_g + w_g, y_g + h_g), (0, 255, 0), 2)
-            roi_green = mask_green[y_g:y_g + h_g, x_g:x_g + w_g]
+            if abs(w_g - h_g) <= 5:
+                cv2.rectangle(frame, (x_g, y_g), (x_g + w_g, y_g + h_g), (0, 255, 0), 2)
+                roi_green = mask_green[y_g:y_g + h_g, x_g:x_g + w_g]
 
-    red_pixels = cv2.countNonZero(mask_red) 
-    purple_pixels = cv2.countNonZero(mask_purple) 
-    green_pixels = cv2.countNonZero(mask_green) 
+    #remask_red = cv2.inRange(roi_red, lower_red,upper_red)
+    #remask_purple = cv2.inRange(roi_purple, lower_purple,upper_purple)
+    #remask_green = cv2.inRange(roi_green, lower_green,upper_green)
+
+    red_pixels = cv2.countNonZero(roi_red) 
+    purple_pixels = cv2.countNonZero(roi_purple) 
+    green_pixels = cv2.countNonZero(roi_green) 
+     
 
     color = {"620호":red_pixels, "602호": purple_pixels, "611호": green_pixels}
     loc_val = max(color, key = color.get)
@@ -147,7 +155,7 @@ class Facerecognition:
             loc_name = []
             frame, location = color_recognition(frame)
             loc_name.append(location)
-            print(loc_name)
+            print("loc_name :", loc_name)
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
