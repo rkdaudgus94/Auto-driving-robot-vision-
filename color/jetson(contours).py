@@ -43,8 +43,9 @@ def color_recognition(frame) :
     #lower_red1 = np.array([130, 50, 50])
     #upper_red1 = np.array([160, 255, 255])
     
-    lower_purple = np.array([270, 102, 255])
-    upper_purple = np.array([270, 255, 153])
+    lower_purple = np.array([130, 50, 50])
+    upper_purple = np.array([160, 255, 255])
+
 
     lower_green = np.array([35, 100, 100])
     upper_green = np.array([85, 255, 255])
@@ -68,9 +69,10 @@ def color_recognition(frame) :
 
     for cnt_red in contours_red:
         if cv2.contourArea(cnt_red) > MIN_CONTOUR_AREA:
-            x, y, w, h = cv2.boundingRect(cnt_red)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 90, 80), 2)
-            roi_red = mask_red[y : y + h, x : x + w]
+            x_r, y_r, w_r, h_r = cv2.boundingRect(cnt_red)
+            if abs(w_r - h_r) <= 30:
+                cv2.rectangle(frame, (x_r, y_r), (x_r + w_r, y_r + h_r), (0, 90, 80), 2)
+                roi_red = mask_red[y_r : y_r + h_r, x_r : x_r + w_r]
 
     for cnt_purple in contours_purple :
         if cv2.contourArea(cnt_purple) > MIN_CONTOUR_AREA:
