@@ -11,15 +11,18 @@ shared_r_locate = None
 
 # 스레드 테스트를 위해 def 2개 생성
 def func1(name):
-    global shared_r_name_list
+    global shared_r_name_list, shared_r_locate
     face_recognition = Facerecognition()
     
     for names, location in face_recognition.video():
         str_names = ''.join(str(element) for element in names)
-        if shared_r_name_list:
+        str_location = ''.join(str(element1) for element1 in location)
+        if shared_r_name_list or shared_r_locate:
             with lock:
                 if str_names == shared_r_name_list:
                     print("일치합니다")
+                if str_location == shared_r_locate :
+                    print("{0}에 도착했습니다. ".format(str_location))
         # cv2.imwrite('captured_frame.jpg', frame)  # 사진 기능 captured_frame : 저장할 이름
 
 def func2(voice):
