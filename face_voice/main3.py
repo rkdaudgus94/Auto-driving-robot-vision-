@@ -4,7 +4,7 @@ from multi_voice import main_voice
 import cv2
 import os
 from multi_face0 import Facerecognition
-from multi_face1 import Facerecognition
+from multi_face1 import Facerecognition1
 
 lock = threading.Lock() # 공유 변수
 shared_r_name_list = None
