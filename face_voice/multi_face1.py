@@ -168,22 +168,22 @@ class Facerecognition1:
                 self.face_names = []
                 for face_encoding in self.face_encodings: # 저장된 얼굴과 캠에서 찍힌 얼굴과 비교
                     match = fr.compare_faces(self.known_face_encoding, face_encoding, 0.55)
-                    name = "???"
+                    name1 = "???"
                     match_percent = "??.?%"
                     face_distance = fr.face_distance(self.known_face_encoding, face_encoding) # 두 사진의 인Coding 거리 값을 비교
 
                     best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
                     if match[best_match_index] :
-                        name = self.known_face_names[best_match_index]
+                        name1 = self.known_face_names[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])                          
-                    self.face_names.append(f'{name}')
+                    self.face_names.append(f'{name1}')
                 
                 # self.process_current_frame = not self.process_current_frame
 
 
             yield self.face_names, loc_name
 
-            for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
+            for (top, right, bottom, left), name1 in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
                 bottom *= 4
@@ -191,7 +191,7 @@ class Facerecognition1:
 
                 cv2.rectangle(frame, (left, top), (right, bottom), (0,0,0), 1)
                 cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,0,0), cv2.FILLED)
-                cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
+                cv2.putText(frame, name1, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
             cv2.imshow('Face Recognition1', frame)
 
