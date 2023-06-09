@@ -12,10 +12,10 @@ image_path = r'/home/hyeun/face_img/*.png'
 
 def gstreamer_pipeline(
     sensor_id=1,
-    capture_width=1920,
-    capture_height=1080,
-    display_width=960,
-    display_height=540,
+    capture_width=1280,
+    capture_height=720,
+    display_width=640,
+    display_height=360,
     framerate=30,
     flip_method=0,
 ):
@@ -193,7 +193,7 @@ class Facerecognition1:
                 cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,0,0), cv2.FILLED)
                 cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
-            cv2.imshow('Face Recognition', frame)
+            cv2.imshow('Face Recognition1', frame)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                  break
