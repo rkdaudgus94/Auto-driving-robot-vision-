@@ -3,7 +3,7 @@ import time
 from multi_voice import main_voice
 import cv2
 import os
-from multi_face2 import Facerecognition
+from multi_face0 import Facerecognition0
 
 lock = threading.Lock() # 공유 변수
 shared_r_name_list = None
@@ -12,13 +12,13 @@ shared_r_locate = None
 # 스레드 테스트를 위해 def 2개 생성
 def func1(name):
     global shared_r_name_list, shared_r_locate
-    face_recognition = Facerecognition()
+    face_recognition = Facerecognition0()
     complete_count = 0
     for names, location in face_recognition.video():
         str_names = ''.join(str(element) for element in names)
         str_location = ''.join(str(element1) for element1 in location)
         complete_count += 1
-        
+
         if complete_count % 20 == 0 :
             print("location : ", str_location)
 
