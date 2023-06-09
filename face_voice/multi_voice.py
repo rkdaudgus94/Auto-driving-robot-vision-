@@ -146,13 +146,15 @@ def respeak():
                 
         # 결과 출력
         for i in range(len(text_division)) :
+
             for j in range(len(names)) :
                 if names[j] == text_division[i] :
-                    r_name = names[j]
-                else : 
-                    for x in range(len(place)) :
-                        if place[x] == text_division[i] :
-                            r_place = place[x]
+                    r_name = names[j] 
+
+            for x in range(len(place)) :
+                if place[x] == text_division[i] :
+                     r_place = place[x]
+                     
         print('이름은', r_name)
         print('장소는', r_place)
                 
