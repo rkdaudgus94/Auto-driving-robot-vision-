@@ -58,18 +58,18 @@ def color_recognition(frame) :
     for cnt_red in contours_red :
         x_r, y_r, w_r, h_r = cv2.boundingRect(cnt_red) # 외곽선 경계 사각형 구함 
         cv2.rectangle(frame, (x_r, y_r), (x_r + w_r, y_r + h_r), (0, 0, 255), 2) # w는 너비 h는 높이, 녹색, 두께
-        roi_red = hsv[y_r : y_r + h_r, x_r : x_r + w_r] # 해당 영역 이미지 잘라내고 확대`1`
+        # roi_red = hsv[y_r : y_r + h_r, x_r : x_r + w_r] # 해당 영역 이미지 잘라내고 확대`1`
 
 
     for cnt_blue in contours_blue :
         x_b, y_b, w_b, h_b = cv2.boundingRect(cnt_blue)
         cv2.rectangle(frame, (x_b, y_b), (x_b + w_b, y_b + h_b), (255, 0, 0), 2)
-        roi_blue = hsv[y_b:y_b + h_b, x_b:x_b + w_b]
+        # roi_blue = hsv[y_b:y_b + h_b, x_b:x_b + w_b]
 
     for cnt_green in contours_green :
         x_g, y_g, w_g, h_g = cv2.boundingRect(cnt_green)
         cv2.rectangle(frame, (x_g, y_g), (x_g + w_g, y_g + h_g), (0, 255, 0), 2)
-        roi_green = hsv[y_g:y_g + h_g, x_g:x_g + w_g]
+        # roi_green = hsv[y_g:y_g + h_g, x_g:x_g + w_g]
 
     #remask_red = cv2.inRange(roi_red, lower_red,upper_red)
     #remask_blue = cv2.inRange(roi_blue, lower_blue,upper_blue)
@@ -79,7 +79,7 @@ def color_recognition(frame) :
     blue_pixels = cv2.countNonZero(mask_blue)
     green_pixels = cv2.countNonZero(mask_green)
 
-    color = {620:red_pixels, 602: blue_pixels, 611: green_pixels}
+    color = {"620호":red_pixels, "602호": blue_pixels, "611호": green_pixels}
     loc_val = max(color, key = color.get)
     
     return frame, loc_val
@@ -133,6 +133,7 @@ class Facerecognition:
             loc_name = []
             frame, location = color_recognition(frame)
             loc_name.append(location)
+            print(loc_name)
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
