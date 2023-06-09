@@ -35,16 +35,16 @@ def gstreamer_pipeline(
 def color_recognition(frame) :
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    #lower_red = np.array([170, 70, 50])
-    #upper_red = np.array([180, 255, 255])
-    lower_red = np.array([0, 90, 80])
-    upper_red = np.array([10, 255, 255])
+    lower_red = np.array([170, 70, 50])
+    upper_red = np.array([180, 255, 255])
+    #lower_red = np.array([0, 90, 80])
+    #upper_red = np.array([10, 255, 255])
 
     #lower_red1 = np.array([130, 50, 50])
     #upper_red1 = np.array([160, 255, 255])
     
-    lower_purple = np.array([130, 50, 50])
-    upper_purple = np.array([160, 255, 255])
+    lower_purple = np.array([270, 102, 255])
+    upper_purple = np.array([270, 255, 153])
 
     lower_green = np.array([35, 100, 100])
     upper_green = np.array([85, 255, 255])
@@ -111,10 +111,10 @@ while True :
         print('Error reading video stream')
         break
 
-    color_frame, r_pix, b_pix, g_pix  = color_recognition(frame)
+    color_frame, r_pix, p_pix, g_pix  = color_recognition(frame)
 
     if count % 20 == 0 :
-        colors = {1: r_pix, 2: b_pix, 3: g_pix}
+        colors = {1: r_pix, 2: p_pix, 3: g_pix}
         max_color = max(colors, key=colors.get)
         print(max_color)
         if max_color == 1 :

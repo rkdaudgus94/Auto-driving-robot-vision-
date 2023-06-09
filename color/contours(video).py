@@ -4,7 +4,7 @@ import os, sys
 import time
 
 count = 0
-MIN_CONTOUR_AREA = 3000
+MIN_CONTOUR_AREA = 3500
 
 def color_recognition(frame) :
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -17,8 +17,8 @@ def color_recognition(frame) :
     #lower_red1 = np.array([130, 50, 50])
     #upper_red1 = np.array([160, 255, 255])
     
-    lower_purple = np.array([130, 50, 50])
-    upper_purple = np.array([160, 255, 255])
+    lower_purple = np.array([270, 102, 255])
+    upper_purple = np.array([270, 255, 153])
 
     lower_green = np.array([35, 100, 100])
     upper_green = np.array([85, 255, 255])
