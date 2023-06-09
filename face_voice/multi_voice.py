@@ -139,7 +139,7 @@ def respeak():
                 
         # 분리된 텍스트 중 이름 부분을 영어로 변경
         names = ['myung hyun', 'hee ung', 'hye seon', 'tae eon', 'elon']
-        place = ['613', '620', '랩실', '물건']
+        place = ['613', '620', '랩실']
                 
         r_name = []
         r_place = []
@@ -171,7 +171,7 @@ def respeak():
         return respeak()
     
 def main_voice():
-     
+
     while True:
         name = []
         locate = []
