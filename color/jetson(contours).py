@@ -75,7 +75,12 @@ def color_recognition(frame) :
     red_pixels = cv2.countNonZero(mask_red)
     blue_pixels = cv2.countNonZero(mask_blue)
     green_pixels = cv2.countNonZero(mask_green)
-    
+    if red_pixels < 500 :
+        red_pixels == 0
+    if blue_pixels < 500 :
+        blue_pixels == 0
+    if green_pixels < 500 :
+        green_pixels == 0    
     return frame, red_pixels, blue_pixels, green_pixels
 
 
