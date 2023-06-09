@@ -3,7 +3,7 @@ import time
 from multi_voice import main_voice
 import cv2
 import os
-from multi_face import Facerecognition
+from multi_face2 import Facerecognition
 
 lock = threading.Lock() # 공유 변수
 shared_r_name_list = None
