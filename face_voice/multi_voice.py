@@ -139,7 +139,7 @@ def respeak():
                 
         # 분리된 텍스트 중 이름 부분을 영어로 변경
         names = ['myung hyun', 'hee ung', 'hye seon', 'tae eon', 'elon']
-        place = ['613', '620', '랩실']
+        place = ['613호', '620호', '랩실']
                 
         r_name = []
         r_place = []
@@ -154,7 +154,7 @@ def respeak():
             for x in range(len(place)) :
                 if place[x] == text_division[i] :
                      r_place = place[x]
-                     
+
         print('이름은', r_name)
         print('장소는', r_place)
                 
