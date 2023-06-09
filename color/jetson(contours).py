@@ -92,9 +92,9 @@ def color_recognition(frame) :
     #remask_purple = cv2.inRange(roi_purple, lower_purple,upper_purple)
     #remask_green = cv2.inRange(roi_green, lower_green,upper_green)
 
-    red_pixels = cv2.countNonZero(mask_red) 
-    purple_pixels = cv2.countNonZero(mask_purple) 
-    green_pixels = cv2.countNonZero(mask_green) 
+    red_pixels = cv2.countNonZero(roi_red) 
+    purple_pixels = cv2.countNonZero(roi_purple) 
+    green_pixels = cv2.countNonZero(roi_green) 
     
     return frame, red_pixels, purple_pixels, green_pixels
 
