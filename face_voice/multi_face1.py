@@ -123,9 +123,9 @@ def face_confidence(face_distance, face_match_threshold=0.6): # face_distance �
 class Facerecognition1:
     face_location = []
     face_encoding = []
-    face_names = []
+    face_names1 = []
     known_face_encoding = []
-    known_face_names = []
+    known_face_names1 = []
     process_current_frame = True
 
     def __init__(self, callback=None):
@@ -135,12 +135,12 @@ class Facerecognition1:
         os.chdir('/home/hyeun/face_img')
         file_names = os.listdir()
         for file_name in file_names :
-            self.known_face_names.append(os.path.splitext(file_name)[0])
+            self.known_face_names1.append(os.path.splitext(file_name)[0])
         for image in glob.glob(image_path):
             face_image = fr.load_image_file(image)
             face_encoding = fr.face_encodings(face_image)[0]
             self.known_face_encoding.append(face_encoding)
-        print(self.known_face_names)
+        print(self.known_face_names1)
 
     
     def video(self, callback= None):
@@ -165,7 +165,7 @@ class Facerecognition1:
                 self.face_location = fr.face_locations(rgb_small_frame)
                 self.face_encodings = fr.face_encodings(rgb_small_frame, self.face_location)
 
-                self.face_names = []
+                self.face_names1 = []
                 for face_encoding in self.face_encodings: # 저장된 얼굴과 캠에서 찍힌 얼굴과 비교
                     match = fr.compare_faces(self.known_face_encoding, face_encoding, 0.55)
                     name1 = "???"
@@ -174,16 +174,16 @@ class Facerecognition1:
 
                     best_match_index = np.argmin(face_distance) # 최소 값을 가진 인덱스를 알려준다
                     if match[best_match_index] :
-                        name1 = self.known_face_names[best_match_index]
+                        name1 = self.known_face_names1[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])                          
-                    self.face_names.append(f'{name1}')
+                    self.face_names1.append(f'{name1}')
                 
                 # self.process_current_frame = not self.process_current_frame
 
 
-            yield self.face_names, loc_name
+            yield self.face_names1, loc_name
 
-            for (top, right, bottom, left), name1 in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
+            for (top, right, bottom, left), name1 in zip(self.face_location, self.face_names1) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
                 bottom *= 4

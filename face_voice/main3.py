@@ -13,44 +13,46 @@ shared_r_locate = None
 # 스레드 테스트를 위해 def 2개 생성
 def face0():
     global shared_r_name_list, shared_r_locate
-    face_recognition = Facerecognition0()
+    face_recognition0 = Facerecognition0()
     complete_count0 = 0
 
-    for names, location in face_recognition.video():
-        str_names0 = ''.join(str(element) for element in names)
-        str_location0 = ''.join(str(element1) for element1 in location)
+    for names0, location0 in face_recognition0.video():
+        str_names0 = ''.join(str(element) for element in names0)
+        str_location0 = ''.join(str(element1) for element1 in location0)
         complete_count0 += 1
         
         if complete_count0 % 20 == 0 :
             print("location : ", str_location0)
+            print("0번 카메라 인물 : {}".format(str_names0))
 
         if shared_r_name_list or shared_r_locate:
             with lock:
                 if (str_names0 == shared_r_name_list) and (complete_count0 % 20 == 0):
-                    print("일치합니다")
+                    print("0번 카메라 : 일치합니다")
                 if (str_location0 == shared_r_locate) and (complete_count0 % 20 == 0) :
-                    print("{0}에 도착했습니다. ".format(str_location0))
+                    print("0번 카메라 : {0}에 도착했습니다. ".format(str_location0))
         # cv2.imwrite('captured_frame.jpg', frame)  # 사진 기능 captured_frame : 저장할 이름
 
 def face1():
     global shared_r_name_list, shared_r_locate
-    face_recognition = Facerecognition1()
+    face_recognition1 = Facerecognition1()
     complete_count1 = 0
 
-    for names, location in face_recognition.video():
-        str_names1 = ''.join(str(element) for element in names)
-        str_location1 = ''.join(str(element1) for element1 in location)
+    for names1, location1 in face_recognition1.video():
+        str_names1 = ''.join(str(element) for element in names1)
+        str_location1 = ''.join(str(element1) for element1 in location1)
         complete_count1 += 1
         
         if complete_count1 % 20 == 0 :
             print("location : ", str_location1)
-
+            print("1번 카메라 인물 : {}".format(str_names1))
+            
         if shared_r_name_list or shared_r_locate:
             with lock:
                 if (str_names1 == shared_r_name_list) and (complete_count1 % 20 == 0):
-                    print("일치합니다")
+                    print("1번 카메라 : 일치합니다")
                 if (str_location1 == shared_r_locate) and (complete_count1 % 20 == 0) :
-                    print("{0}에 도착했습니다. ".format(str_location1))
+                    print("1번 카메라 : {0}에 도착했습니다. ".format(str_location1))
 
 def voice():
     global shared_r_name_list, shared_r_locate 
