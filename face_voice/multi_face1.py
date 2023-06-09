@@ -11,7 +11,7 @@ MIN_CONTOUR_AREA = 3500
 image_path = r'/home/hyeun/face_img/*.png'
 
 def gstreamer_pipeline(
-    sensor_id=0,
+    sensor_id=1,
     capture_width=1920,
     capture_height=1080,
     display_width=960,
