@@ -6,6 +6,8 @@ import glob
 import time
 import face_recognition as fr
 
+image_path = r'/home/hyeun/face_img/*.png'
+
 def gstreamer_pipeline(
     sensor_id=0,
     capture_width=1920,
@@ -32,7 +34,59 @@ def gstreamer_pipeline(
             display_height,
         )
     )
-image_path = r'/home/hyeun/face_img/*.png'
+
+def color_recognition(frame) :
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    lower_red = np.array([0, 120, 70])
+    upper_red = np.array([10, 255, 255])
+
+    lower_blue = np.array([100, 100, 100])
+    upper_blue = np.array([140, 255, 255])
+
+    lower_green = np.array([35, 100, 100])
+    upper_green = np.array([85, 255, 255])
+
+    mask_red = cv2.inRange(hsv, lower_red, upper_red)
+    mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
+    mask_green = cv2.inRange(hsv, lower_green, upper_green)
+
+    contours_red, _ = cv2.findContours(mask_red, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_blue, _ = cv2.findContours(mask_blue, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_green, _ = cv2.findContours(mask_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    for cnt_red in contours_red :
+        x_r, y_r, w_r, h_r = cv2.boundingRect(cnt_red) # 외곽선 경계 사각형 구함 
+        cv2.rectangle(frame, (x_r, y_r), (x_r + w_r, y_r + h_r), (0, 0, 255), 2) # w는 너비 h는 높이, 녹색, 두께
+        roi_red = hsv[y_r : y_r + h_r, x_r : x_r + w_r] # 해당 영역 이미지 잘라내고 확대`1`
+
+
+    for cnt_blue in contours_blue :
+        x_b, y_b, w_b, h_b = cv2.boundingRect(cnt_blue)
+        cv2.rectangle(frame, (x_b, y_b), (x_b + w_b, y_b + h_b), (255, 0, 0), 2)
+        roi_blue = hsv[y_b:y_b + h_b, x_b:x_b + w_b]
+
+    for cnt_green in contours_green :
+        x_g, y_g, w_g, h_g = cv2.boundingRect(cnt_green)
+        cv2.rectangle(frame, (x_g, y_g), (x_g + w_g, y_g + h_g), (0, 255, 0), 2)
+        roi_green = hsv[y_g:y_g + h_g, x_g:x_g + w_g]
+
+    #remask_red = cv2.inRange(roi_red, lower_red,upper_red)
+    #remask_blue = cv2.inRange(roi_blue, lower_blue,upper_blue)
+    #remask_green = cv2.inRange(roi_green, lower_green,upper_green)
+
+    red_pixels = cv2.countNonZero(mask_red)
+    blue_pixels = cv2.countNonZero(mask_blue)
+    green_pixels = cv2.countNonZero(mask_green)
+
+    color = {620:red_pixels, 602: blue_pixels, 611: green_pixels}
+    loc_val = max(color, key = color.get)
+    
+    return frame, loc_val
+
+""" def locate_value(r_pix, b_pix, g_pix) :
+    color = {620:r_pix, 602: b_pix, 611: g_pix}
+    loc_val = max(color, key = color.get) """
 
 def face_confidence(face_distance, face_match_threshold=0.6): # face_distance 값과 face_match 임계값을 설정한 사설함수
     range = (1.0 - face_match_threshold)
@@ -76,8 +130,9 @@ class Facerecognition:
 
         while True :            
             ret, frame = cap.read() # fps  = frame per second 60 frame = 1초 60장을
-            
-
+            loc_name = []
+            frame, location = color_recognition(frame)
+            loc_name.append(location)
             if self.process_current_frame: # 인식처리를 더 빠르게 하기 위해 1/4 크기로 줄임
                 small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
@@ -100,18 +155,20 @@ class Facerecognition:
                         name = self.known_face_names[best_match_index]
                         match_percent = face_confidence(face_distance[best_match_index])                          
                     self.face_names.append(f'{name}')
+                
                 # self.process_current_frame = not self.process_current_frame
 
 
-            yield self.face_names, frame
+            yield self.face_names, loc_name
+
             for (top, right, bottom, left), name in zip(self.face_location, self.face_names) : # 1/4로 축소된 얼굴 크기를 다시 되돌림
                 top *= 4
                 right *= 4
                 bottom *= 4
                 left *= 4
 
-                cv2.rectangle(frame, (left, top), (right, bottom), (0,255,0), 1)
-                cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,255,0), cv2.FILLED)
+                cv2.rectangle(frame, (left, top), (right, bottom), (0,0,0), 1)
+                cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,0,0), cv2.FILLED)
                 cv2.putText(frame, name, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
             cv2.imshow('Face Recognition', frame)

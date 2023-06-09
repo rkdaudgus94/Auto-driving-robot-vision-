@@ -158,7 +158,7 @@ def respeak():
                 
         # r_name에 단어가 있으면 객체 인식 코드로 이동
         
-        return r_name if r_name else respeak()
+        return r_name, r_place if r_name or r_place else respeak()
             
     # 음성 인식 실패한 경우
     except sr.UnknownValueError:
@@ -170,16 +170,22 @@ def respeak():
         playsound.playsound(wav_path)
         return respeak()
     
-def main_voice(): 
+def main_voice():
+     
     while True:
         name = []
-        name = speak_jetson()
-        if name != [] :
+        locate = []
+        name, locate = speak_jetson()
+        if (name != []) or (locate != []) :
             r_name_list = name
+            r_locate = locate
             print("r_name: ", r_name_list)
-            yield r_name_list
+            print("r_locate: ", r_locate)
+            yield r_name_list, r_locate
+
         else:
             break
+
 """ def get_r_name_list():
     r_name_list = main()  
     return r_name_list """

@@ -7,13 +7,14 @@ from multi_face import Facerecognition
 
 lock = threading.Lock() # 공유 변수
 shared_r_name_list = None
+shared_r_locate = None
 
 # 스레드 테스트를 위해 def 2개 생성
 def func1(name):
     global shared_r_name_list
     face_recognition = Facerecognition()
     
-    for names in face_recognition.video():
+    for names, location in face_recognition.video():
         str_names = ''.join(str(element) for element in names)
         if shared_r_name_list:
             with lock:
@@ -22,12 +23,14 @@ def func1(name):
         # cv2.imwrite('captured_frame.jpg', frame)  # 사진 기능 captured_frame : 저장할 이름
 
 def func2(voice):
-    global shared_r_name_list
-    for r_name_list in main_voice() :
+    global shared_r_name_list, shared_r_locate 
+    for r_name_list, r_locate_list in main_voice() :
         print ("r_name :" , r_name_list)
+        print ("r_place :", r_locate_list)
         with lock:
-            if (r_name_list != [])  :
+            if (r_name_list != []) or (r_locate_list != []) :
                 shared_r_name_list = r_name_list
+                shared_r_locate = r_locate_list
 
 def main():
     #스레드 정의
