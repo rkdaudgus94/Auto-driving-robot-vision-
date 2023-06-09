@@ -193,7 +193,7 @@ class Facerecognition1:
                 cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0,0,0), cv2.FILLED)
                 cv2.putText(frame, name1, (left+ 10, bottom - 10), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255),1)
 
-            cv2.imshow('Face Recognition1', frame)
+            # cv2.imshow('Face Recognition1', frame)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                  break
