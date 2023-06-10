@@ -94,7 +94,7 @@ def respeak():
         print('"' + text + '"' + "라고 말한 것이 맞습니까?")
         txt = text + "라고 말한 것이 맞습니까?"
         tts_kr = gTTS(txt, lang = 'ko', slow = False)
-        wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
+        wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
         tts_kr.save(wav_path)
         playsound.playsound(wav_path)
 
@@ -153,7 +153,7 @@ def respeak():
             print("내용을 다시 한 번 말씀해주시겠어요?")
             txt = "내용을 다시 한 번 말씀해주시겠어요?"
             tts_kr = gTTS(txt, lang = 'ko', slow = False)
-            wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
+            wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
             tts_kr.save(wav_path)
             playsound.playsound(wav_path)
             return respeak()
@@ -161,7 +161,7 @@ def respeak():
             print("내용을 다시 한 번 말씀해주시겠어요?")
             txt = "내용을 다시 한 번 말씀해주시겠어요?"
             tts_kr = gTTS(txt, lang = 'ko', slow = False)
-            wav_path = os.path.join("/home/hyeun/ssun", "voice.wav")
+            wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
             tts_kr.save(wav_path)
             playsound.playsound(wav_path)
             return respeak()
@@ -171,7 +171,7 @@ def respeak():
         print("내용을 다시 한 번 말씀해주시겠어요?")
         txt = "내용을 다시 한 번 말씀해주시겠어요?"
         tts_kr = gTTS(txt, lang = 'ko', slow = False)
-        wav_path = os.path.join("/home/hyeun/ssun", "voice.wav")
+        wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
         tts_kr.save(wav_path)
         playsound.playsound(wav_path)
         return respeak()
