@@ -4,14 +4,18 @@ from multi_voice import main_voice
 import cv2
 import os
 from multi_face0 import Facerecognition0
-import serial
+import socket
 
 lock = threading.Lock() # 공유 변수
 shared_r_name_list = None
 shared_r_locate = None
+def start_server():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # AF_INET : 주소 체계, SOCK_STREAM : TCP 방식
+    server_address = ('192.168.0.11', 12345)
+    server_socket.bind(server_address)
 
-# 스레드 테스트를 위해 def 2개 생성
-def func1(name):
+
+def func1(name): # Video
     global shared_r_name_list, shared_r_locate
     face_recognition = Facerecognition0()
     complete_count = 0
@@ -31,7 +35,7 @@ def func1(name):
                     print("{0}에 도착했습니다. ".format(str_location))
         # cv2.imwrite('captured_frame.jpg', frame)  # 사진 기능 captured_frame : 저장할 이름
 
-def func2(voice):
+def func2(voice): # Voice
     global shared_r_name_list, shared_r_locate 
     for r_name_list, r_locate_list in main_voice() :
         print ("r_name :" , r_name_list)
