@@ -8,7 +8,7 @@ def start_server():
     # 서버의 IP 주소와 포트를 설정합니다. ''는 모든 사용 가능한 인터페이스를 나타냅니다.
     # netstat -a -n 을 입력하여 주소와 포트 확인
     # 192.168.0.11::139, 127.0.0.1:40053
-    server_address = ('127.0.0.1', 12345)
+    server_address = ('192.168.0.25', 12345)
     server_socket.bind(server_address)
     server_socket.listen(1) # 서버가 클라이언트의 연결을 기다리고 있음. '1'은 동시에 처리 가능한 클라이언트 연결의 최대수
     
