@@ -4,6 +4,7 @@ import playsound
 import os
 from hangul_romanize import Transliter
 from hangul_romanize.rule import academic
+import time
 
 def recognition_rate(text, place, tae_eon, myung_hyun):
     for word in place + tae_eon + myung_hyun:
@@ -33,7 +34,7 @@ def speak_jetson():
             text = r.recognize_google(audio_data, language = 'ko')
             
             # 음성인식 시 오류나는 단어
-            jetson = ["잭슨", "넥슨", "넥센"]
+            jetson = ["잭슨", "넥슨", "넥센"] #"잭스", "엑스", "섹스", "렉스"
             
             # 오류나는 젯슨 단어를 젯슨으로 바꿔주는 코드
             for i in jetson :
@@ -43,12 +44,12 @@ def speak_jetson():
             # 이름 인식 -> 음성 인식 코드로 넘어감
             if(text == "젯슨") :
                 print("네! 부르셨나요?")
-                txt = "네! 부르셨나요?"
+                print("모드 변경 또는 내용을 말씀해주세요!")
+                txt = "네! 부르셨나요? 모드 변경 또는 내용을 말씀해주세요!"
                 tts_kr = gTTS(txt, lang = 'ko', slow = False)
                 wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
                 tts_kr.save(wav_path)
                 playsound.playsound(wav_path)
-                print("모드 변경 OR 내용을 말씀해주세요!")
                 
                 return respeak()
                     
@@ -72,7 +73,6 @@ def respeak():
     # 음성인식 객체 생성
     r = sr.Recognizer()
     s = sr.Recognizer()
-    m = sr.Recognizer()
 
     with sr.Microphone() as source :
         # 마이크로부터 오디오 읽기
@@ -94,6 +94,8 @@ def respeak():
             wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
             tts_kr.save(wav_path)
             playsound.playsound(wav_path)
+            
+            time.sleep(2)
                     
             # mode_capture에 단어가 있으면 객체 인식 코드로 이동
             return mode_capture if mode_capture else respeak()
@@ -157,30 +159,49 @@ def respeak():
             print('장소는', r_place)
                 
             # r_name에 단어가 있으면 객체 인식 코드로 이동
-            return r_name if r_name else respeak()
+            return r_name, r_place if r_name or r_place else respeak()
         
         elif (text1 == "아니요") :
             # 인식된 음성에 대한 대답
-            print("다시 한 번 말씀해주시겠어요?")
-            txt = "다시 한 번 말씀해주시겠어요?"
+            print("내용을 다시 한 번 말씀해주시겠어요?")
+            txt = "내용을 다시 한 번 말씀해주시겠어요?"
             tts_kr = gTTS(txt, lang = 'ko', slow = False)
             wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
+            tts_kr.save(wav_path)
+            playsound.playsound(wav_path)
+            return respeak()
+        
+        else :
+            print("내용을 다시 한 번 말씀해주시겠어요?")
+            txt = "내용을 다시 한 번 말씀해주시겠어요?"
+            tts_kr = gTTS(txt, lang = 'ko', slow = False)
+            wav_path = os.path.join("/home/hyeun/ssun", "voice.wav")
             tts_kr.save(wav_path)
             playsound.playsound(wav_path)
             return respeak()
     
     # 음성 인식 실패한 경우
     except sr.UnknownValueError:
-        print("다시 한 번 말씀해주시겠어요?")
-        txt = "다시 한 번 말씀해주시겠어요?"
+        print("내용을 다시 한 번 말씀해주시겠어요?")
+        txt = "내용을 다시 한 번 말씀해주시겠어요?"
         tts_kr = gTTS(txt, lang = 'ko', slow = False)
         wav_path = os.path.join("/home/hyeun/ssun", "voice.wav")
         tts_kr.save(wav_path)
         playsound.playsound(wav_path)
         return respeak()
 
+def main_voice():
+    while True:
+        name = []
+        name = speak_jetson()
+        if name != [] :
+            r_name_list = name
+            print("r_name1: ", r_name_list)
+            yield r_name_list
+            
     
-def main_voice(): 
+    
+"""def main_voice(): 
     while True:
         name = []
         name = speak_jetson()
@@ -195,7 +216,7 @@ def main_voice():
                 print("r_name: ", r_name_list)
                 yield r_name_list
         else:
-            break
+            break"""
         
 """ def get_r_name_list():
     r_name_list = main()  

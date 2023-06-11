@@ -4,7 +4,11 @@ from multi_voice import main_voice
 import cv2
 import os
 from multi_face0 import Facerecognition0
-import serial
+import speech_recognition as sr
+from gtts import gTTS
+import playsound
+from hangul_romanize import Transliter
+from hangul_romanize.rule import academic
 
 lock = threading.Lock() # 공유 변수
 shared_r_name_list = None

@@ -6,7 +6,7 @@ import glob
 import time
 import face_recognition as fr
 
-MIN_CONTOUR_AREA = 3500
+MIN_CONTOUR_AREA = 4000
 
 image_path = r'/home/hyeun/face_img/*.png'
 
