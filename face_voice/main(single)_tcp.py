@@ -23,7 +23,7 @@ def send():
     global shared_r_locate, send_location, lidar_signal, arrive
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # AF_INET : 주소 체계, SOCK_STREAM : TCP 방식
-    server_address = ('192.168.0.25', 12349) 
+    server_address = ('192.168.0.25', 12350) 
     server_socket.bind(server_address) # 소켓을 address와 binding
     server_socket.listen(1) # 동시에 처리 가능한 클라이언트 연결의 최대수
     print("Server is waiting for Client")
