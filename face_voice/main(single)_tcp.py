@@ -37,7 +37,7 @@ def send():
     thread4.start()
 
     try :
-        msg_location = None
+        # msg_location = None
         prev_send_location = None 
 
         while True :
