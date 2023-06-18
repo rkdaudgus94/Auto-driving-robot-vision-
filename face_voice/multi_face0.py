@@ -101,7 +101,7 @@ def color_recognition(frame) :
     green_pixels = cv2.countNonZero(roi_green) 
      
 
-    color = {"620호":red_pixels, "602호": purple_pixels, "611호": green_pixels}
+    color = {"628호":red_pixels, "602호": purple_pixels, "611호": green_pixels}
     loc_val = max(color, key = color.get, default= "*")
     
     return frame, loc_val
