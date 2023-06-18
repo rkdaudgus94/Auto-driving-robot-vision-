@@ -13,6 +13,8 @@ shared_r_locate = None
 arrive = None
 cur_send_location = None
 lidar_signal = None
+send_location = None
+
 ############################################################################
 ############################################################################
 ############################################################################
@@ -55,6 +57,7 @@ def send():
                 if msg_arrive :
                     connection.sendall(msg_arrive.encode('utf-8'))
                     print(f"{msg_arrive}에 도착했다는 메시지를 보냈습니다. ")
+
                 if msg_location :
                     connection.sendall(msg_location.encode('utf-8'))
                     print(f"라이다에게 {msg_location}의 좌표값을 보냈습니다. ")
