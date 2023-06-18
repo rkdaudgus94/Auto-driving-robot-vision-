@@ -50,7 +50,7 @@ def send():
                         msg_arrive = arrive
                         
                     elif prev_send_location != cur_send_location : # mic_speaker로부터 목표지점의 데이터를 전달받았을 때 라이다로 전송
-                        msg_location = '1'
+                        cur_send_location = '1'
                         msg_location = cur_send_location
                         prev_send_location = cur_send_location
 
