@@ -47,7 +47,7 @@ def camera_mode() :
             romanized_name = trans.translit(text)
             print("romanized_name :", romanized_name)
 
-
+    
 def speak_jetson():
             
     # 음성인식 객체 생성
