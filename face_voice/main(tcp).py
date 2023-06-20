@@ -117,12 +117,12 @@ def camera():
 def mic_speaker(): # Voice
     global shared_r_name_list, shared_r_locate, send_location, f_location
 
-    for r_name_list, r_locate_list, f_place in main_voice() :
+    for r_name_list, r_locate_list in main_voice() :
         print ("r_name :" , r_name_list)
         print ("r_place :", r_locate_list)
-        print ("f_place :", f_place)
+        # print ("f_place :", f_place)
         with lock:
-            if (r_name_list != []) or (r_locate_list != []) or (f_place != []) :
+            if (r_name_list != []) or (r_locate_list != [])  :
                 shared_r_name_list = r_name_list
                 shared_r_locate = r_locate_list
                 # send_location = r_locate_list # 1-1) 음성인식으로 전달받은 데이터를 send_location으로 저장후 send()에 전송
