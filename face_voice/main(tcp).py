@@ -54,7 +54,8 @@ def send():
 
                 if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
                     print(f"{arrv}에 도착했습니다!")
-            
+                    connection.sendall(arrv.encode('utf-8'))
+                    
             else :
                 print("연결이 안됨")
             time.sleep(1)
@@ -110,6 +111,7 @@ def camera():
                     print("{0}에 도착했습니다. ".format(str_location))
                     arrive = re.findall(r'\d+', str_location)
                     print("arrive :" ,arrive)
+                    shared_r_name_list = None
         # cv2.imwrite('captured_frame.jpg', frame)  # 사진 기능 captured_frame : 저장할 이름
 
 ############################################################################
