@@ -21,7 +21,7 @@ f_location = None
 ############################################################################
 
 def send():
-    global shared_r_locate, send_location, lidar_signal, arrive, f_location, lidar_signal
+    global shared_r_locate, send_location, lidar_signal, arrive, f_location
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # AF_INET : 주소 체계, SOCK_STREAM : TCP 방식
     server_address = ('192.168.0.25', 12351) 
@@ -36,6 +36,7 @@ def send():
 
     thread4 = threading.Thread(target = recv, args=(connection,))
     thread4.start()
+    thread4.join()
 
     try :
         # msg_location = None
@@ -49,26 +50,11 @@ def send():
                 with lock :
                     signal = lidar_signal
                     arrv = arrive
-                    ##################명현################1
-                    if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
-                        print(f"{arrv}에 도착했습니다!")
-                    ##################명현################1 
-                    
-                   # elif prev_send_location != cur_send_location : # mic_speaker로부터 목표지점의 데이터를 전달받았을 때 라이다로 전송
-                    #    cur_send_location = '1'
-                     #   msg_location = cur_send_location
-                      #  prev_send_location = cur_send_location
-                    
-                    ##################명현################2
 
+                if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
+                    print(f"{arrv}에 도착했습니다!")
 
-                    else :
-                        pass
-                    ##################명현################2
-
-                  #  if msg_location :
-                   #     connection.sendall(msg_location.encode('utf-8'))
-                    #    print(f"라이다에게 {msg_location}의 좌표값을 보냈습니다. ")
+ 
             else :
                 print("연결이 안됨")
 
@@ -84,13 +70,17 @@ def recv(connection): # lidar로부터 목표점에 도착했다는 신호를 �
     global lidar_signal
 
     while True :
-        message = connection.recv(1024)
-        with lock :
-            ##################명현################3
-            if message :
-                print(f"라이다로부터 받은 메세지 : {message}")
-                lidar_signal = message
-            ##################명현################3
+        try:
+
+            message = connection.recv(1024)
+            with lock :
+                if message :
+                    print(f"라이다로부터 받은 메세지 : {message}")
+                    lidar_signal = message
+
+        except Exception as e:
+            print(f"Error occurred while receiving message: {e}")
+            break
 
 ############################################################################
 ############################################################################
