@@ -48,16 +48,20 @@ def send():
             if client_address :
 
                 with lock :
-                    signal = lidar_signal
-                    arrv = arrive
+                    if lidar_signal or arrive :
+                        signal = lidar_signal
+                        arrv = arrive
 
                 if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
                     print(f"{arrv}에 도착했습니다!")
+            
+
 
  
             else :
                 print("연결이 안됨")
-
+            time.sleep(1)
+            
     except KeyboardInterrupt :
         connection.close()
         server_socket.close()
