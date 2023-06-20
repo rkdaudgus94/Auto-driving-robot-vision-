@@ -48,11 +48,11 @@ def color_recognition(frame) :
     #lower_red1 = np.array([130, 50, 50])
     #upper_red1 = np.array([160, 255, 255])
     
-    #lower_yellow = np.array([25, 50, 70])
-    #upper_yellow = np.array([35, 255, 255])
+    #lower_White = np.array([25, 50, 70])
+    #upper_White = np.array([35, 255, 255])
 
-    lower_yellow = np.array([20, 100, 100])
-    upper_yellow = np.array([30, 255, 255]) 
+    lower_White = np.array([0,0,200], dtype=np.uint8)      
+    upper_White = np.array([180,255,255], dtype=np.uint8) 
 
     lower_green = np.array([35, 100, 100])
     upper_green = np.array([85, 255, 255])
@@ -61,17 +61,17 @@ def color_recognition(frame) :
     upper_blue = np.array([140, 255, 255])
 
     mask_red = cv2.inRange(hsv, lower_red, upper_red)
-    mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)
+    mask_White = cv2.inRange(hsv, lower_White, upper_White)
     mask_green = cv2.inRange(hsv, lower_green, upper_green)
     mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
 
     contours_red, _ = cv2.findContours(mask_red, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contours_yellow, _ = cv2.findContours(mask_yellow, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_White, _ = cv2.findContours(mask_White, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours_green, _ = cv2.findContours(mask_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours_blue, _ = cv2.findContours(mask_blue, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
     roi_red = None
-    roi_yellow = None
+    roi_White = None
     roi_green = None
     roi_blue = None
     
@@ -87,12 +87,12 @@ def color_recognition(frame) :
                 cv2.rectangle(frame, (x_r, y_r), (x_r + w_r, y_r + h_r), (0, 0, 255), 2) # B G R
                 roi_red = mask_red[y_r : y_r + h_r, x_r : x_r + w_r]
 
-    for cnt_yellow in contours_yellow :
-        if cv2.contourArea(cnt_yellow) > MIN_CONTOUR_AREA:
-            x_b, y_b, w_b, h_b = cv2.boundingRect(cnt_yellow)
+    for cnt_White in contours_White :
+        if cv2.contourArea(cnt_White) > MIN_CONTOUR_AREA:
+            x_b, y_b, w_b, h_b = cv2.boundingRect(cnt_White)
             if abs(w_b - h_b) <= 5:
                 cv2.rectangle(frame, (x_b, y_b), (x_b + w_b, y_b + h_b), (0, 255, 255), 2)
-                roi_yellow = mask_yellow[y_b:y_b + h_b, x_b:x_b + w_b]
+                roi_White = mask_White[y_b:y_b + h_b, x_b:x_b + w_b]
 
     for cnt_green in contours_green :
         if cv2.contourArea(cnt_green) > MIN_CONTOUR_AREA:
@@ -109,16 +109,16 @@ def color_recognition(frame) :
                 roi_blue = mask_blue[y_g:y_g + h_g, x_g:x_g + w_g]
 
     #remask_red = cv2.inRange(roi_red, lower_red,upper_red)
-    #remask_yellow = cv2.inRange(roi_yellow, lower_yellow,upper_yellow)
+    #remask_White = cv2.inRange(roi_White, lower_White,upper_White)
     #remask_green = cv2.inRange(roi_green, lower_green,upper_green)
 
     red_pixels = cv2.countNonZero(roi_red) 
-    yellow_pixels = cv2.countNonZero(roi_yellow) 
+    White_pixels = cv2.countNonZero(roi_White) 
     green_pixels = cv2.countNonZero(roi_green) 
     blue_pixels = cv2.countNonZero(roi_blue) 
      
 
-    color = {"not found":red_pixels, "620": yellow_pixels, "elevator": green_pixels, "610": blue_pixels}
+    color = {"not found":red_pixels, "620": White_pixels, "elevator": green_pixels, "610": blue_pixels}
     loc_val = max(color, key = color.get, default= "*")
     
     return frame, loc_val
