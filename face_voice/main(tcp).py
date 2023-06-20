@@ -54,7 +54,7 @@ def send():
 
                 if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
                     print(f"{arrv}에 도착했습니다!")
-                    check = arrv
+                    check = ' '.join(arrv)
                     connection.sendall(check.encode('utf-8'))
             else :
                 print("연결이 안됨")
