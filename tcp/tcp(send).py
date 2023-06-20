@@ -1,17 +1,27 @@
+import threading
 import socket
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+class Client:
+    def __init__(self, host = '192.168.0.25', port = 12351):
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect((host, port))
 
-sock.connect(('192.168.0.25', 12352))  # 접속할 서버의 IP주소와 포트번호를 입력.
-sock.send('Hello'.encode())  # 내가 전송할 데이터를 보냄.
+    def send_message(self):
+        while True:
+            msg = input("Enter your message: ")
+            self.sock.sendall(msg.encode())
 
-try:
-    while True:
-        data = sock.recv(1024)  # 서버로부터 데이터를 받음.
-        if not data:  # 만약 데이터가 없다면(연결이 끊어졌다면) break.
-            break
-        print("Received message: ", data.decode())  # 받은 데이터를 출력.
-except KeyboardInterrupt:  # Ctrl+C를 눌렀을 때 예외를 처리함.
-    print("Interrupted.")
-finally:
-    sock.close()  # 소켓을 닫음.
+    def receive_message(self):
+        while True:
+            data = self.sock.recv(1024)
+            if not data:
+                break
+            print('Received:', data.decode())
+
+if __name__ == "__main__":
+    client = Client()
+    send_thread = threading.Thread(target = client.send_message)
+    send_thread.start()
+
+    receive_thread = threading.Thread(target = client.receive_message)
+    receive_thread.start()

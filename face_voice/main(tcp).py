@@ -39,25 +39,26 @@ def send():
 
     try :
         # msg_location = None
-        prev_send_location = None 
+        # prev_send_location = None 
 
         while True :
-            cur_send_location = send_location # 1-2) 전달 받은 send_location을 cur_send_locatio에 저장 
-            msg_arrive = None
+           # cur_send_location = send_location # 1-2) 전달 받은 send_location을 cur_send_locatio에 저장 
+           # msg_arrive = None
             signal = lidar_signal
             arrv = arrive
             if client_address :
 
                 with lock :
+
                     ##################명현################1
                     if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
                         msg_arrive = arrv
                     ##################명현################1 
                     
-                    elif prev_send_location != cur_send_location : # mic_speaker로부터 목표지점의 데이터를 전달받았을 때 라이다로 전송
-                        cur_send_location = '1'
-                        msg_location = cur_send_location
-                        prev_send_location = cur_send_location
+                   # elif prev_send_location != cur_send_location : # mic_speaker로부터 목표지점의 데이터를 전달받았을 때 라이다로 전송
+                    #    cur_send_location = '1'
+                     #   msg_location = cur_send_location
+                      #  prev_send_location = cur_send_location
                     
                     ##################명현################2
 
@@ -66,9 +67,9 @@ def send():
 
                     ##################명현################2
 
-                    if msg_location :
-                        connection.sendall(msg_location.encode('utf-8'))
-                        print(f"라이다에게 {msg_location}의 좌표값을 보냈습니다. ")
+                  #  if msg_location :
+                   #     connection.sendall(msg_location.encode('utf-8'))
+                    #    print(f"라이다에게 {msg_location}의 좌표값을 보냈습니다. ")
             else :
                 print("연결이 안됨")
 
@@ -134,8 +135,8 @@ def mic_speaker(): # Voice
             if (r_name_list != []) or (r_locate_list != []) or (f_place != []) :
                 shared_r_name_list = r_name_list
                 shared_r_locate = r_locate_list
-                send_location = r_locate_list # 1-1) 음성인식으로 전달받은 데이터를 send_location으로 저장후 send()에 전송
-                f_location = f_place
+                # send_location = r_locate_list # 1-1) 음성인식으로 전달받은 데이터를 send_location으로 저장후 send()에 전송
+                # f_location = f_place
 
 ############################################################################
 ############################################################################
