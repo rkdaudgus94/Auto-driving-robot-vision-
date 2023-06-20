@@ -48,8 +48,8 @@ def color_recognition(frame) :
     #lower_red1 = np.array([130, 50, 50])
     #upper_red1 = np.array([160, 255, 255])
     
-    lower_yello = np.array([20, 100, 100])
-    upper_yello = np.array([30, 255, 255])
+    lower_yello = np.array([25, 50, 70])
+    upper_yello = np.array([35, 255, 255]) 
 
     lower_green = np.array([35, 100, 100])
     upper_green = np.array([85, 255, 255])
