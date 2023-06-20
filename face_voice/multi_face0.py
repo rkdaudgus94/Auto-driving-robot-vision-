@@ -100,7 +100,7 @@ def color_recognition(frame) :
 
     for cnt_purple in contours_purple :
         if cv2.contourArea(cnt_purple) > MIN_CONTOUR_AREA:
-            x_g, y_g, w_g, h_g = cv2.boundingRect(cnt_green)
+            x_g, y_g, w_g, h_g = cv2.boundingRect(cnt_purple)
             if abs(w_g - h_g) <= 5:
                 cv2.rectangle(frame, (x_g, y_g), (x_g + w_g, y_g + h_g), (0, 255, 0), 2)
                 roi_purple = mask_purple[y_g:y_g + h_g, x_g:x_g + w_g]
