@@ -44,7 +44,7 @@ def send():
 
         while True :
            # cur_send_location = send_location # 1-2) 전달 받은 send_location을 cur_send_locatio에 저장 
-
+            arrv = None
             if client_address :
 
                 with lock :
@@ -55,13 +55,10 @@ def send():
                 if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
                     print(f"{arrv}에 도착했습니다!")
             
-
-
- 
             else :
                 print("연결이 안됨")
             time.sleep(1)
-            
+
     except KeyboardInterrupt :
         connection.close()
         server_socket.close()
