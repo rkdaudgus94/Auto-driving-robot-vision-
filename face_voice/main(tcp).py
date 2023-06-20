@@ -43,16 +43,15 @@ def send():
 
         while True :
            # cur_send_location = send_location # 1-2) 전달 받은 send_location을 cur_send_locatio에 저장 
-            msg_arrive = None
-            signal = lidar_signal
-            arrv = arrive
+
             if client_address :
 
                 with lock :
-
+                    signal = lidar_signal
+                    arrv = arrive
                     ##################명현################1
                     if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
-                        msg_arrive = arrv
+                        print(f"{arrv}에 도착했습니다!")
                     ##################명현################1 
                     
                    # elif prev_send_location != cur_send_location : # mic_speaker로부터 목표지점의 데이터를 전달받았을 때 라이다로 전송
@@ -62,8 +61,7 @@ def send():
                     
                     ##################명현################2
 
-                    if msg_arrive :
-                        print(f"{msg_arrive}에 도착했습니다.")
+
                     else :
                         pass
                     ##################명현################2
