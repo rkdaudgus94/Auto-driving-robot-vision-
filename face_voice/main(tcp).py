@@ -36,7 +36,7 @@ def send():
 
     thread4 = threading.Thread(target = recv, args=(connection,))
     thread4.start()
-    thread4.join()
+    
 
     try :
         # msg_location = None
