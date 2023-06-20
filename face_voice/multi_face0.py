@@ -48,23 +48,29 @@ def color_recognition(frame) :
     #lower_red1 = np.array([130, 50, 50])
     #upper_red1 = np.array([160, 255, 255])
     
-    lower_purple = np.array([130, 50, 50])
-    upper_purple = np.array([160, 255, 255])
+    lower_yello = np.array([20, 100, 100])
+    upper_yello = np.array([30, 255, 255])
 
     lower_green = np.array([35, 100, 100])
     upper_green = np.array([85, 255, 255])
 
+    lower_purple = np.array([125, 50, 50]) # HSV에서 보라색 범위의 하한
+    upper_purple = np.array([155, 255, 255])
+
     mask_red = cv2.inRange(hsv, lower_red, upper_red)
-    mask_purple = cv2.inRange(hsv, lower_purple, upper_purple)
+    mask_yello = cv2.inRange(hsv, lower_yello, upper_yello)
     mask_green = cv2.inRange(hsv, lower_green, upper_green)
+    mask_purple = cv2.inRange(hsv, lower_purple, upper_purple)
 
     contours_red, _ = cv2.findContours(mask_red, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contours_purple, _ = cv2.findContours(mask_purple, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_yello, _ = cv2.findContours(mask_yello, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours_green, _ = cv2.findContours(mask_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_purple, _ = cv2.findContours(mask_purple, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
     roi_red = None
-    roi_purple = None
+    roi_yello = None
     roi_green = None
+    roi_purple = None
     
     #for cnt_red in contours_red :
     #    x_r, y_r, w_r, h_r = cv2.boundingRect(cnt_red) # 외곽선 경계 사각형 구함 
@@ -78,12 +84,12 @@ def color_recognition(frame) :
                 cv2.rectangle(frame, (x_r, y_r), (x_r + w_r, y_r + h_r), (0, 0, 255), 2)
                 roi_red = mask_red[y_r : y_r + h_r, x_r : x_r + w_r]
 
-    for cnt_purple in contours_purple :
-        if cv2.contourArea(cnt_purple) > MIN_CONTOUR_AREA:
-            x_b, y_b, w_b, h_b = cv2.boundingRect(cnt_purple)
+    for cnt_yello in contours_yello :
+        if cv2.contourArea(cnt_yello) > MIN_CONTOUR_AREA:
+            x_b, y_b, w_b, h_b = cv2.boundingRect(cnt_yello)
             if abs(w_b - h_b) <= 5:
                 cv2.rectangle(frame, (x_b, y_b), (x_b + w_b, y_b + h_b), (128, 0, 128), 2)
-                roi_purple = mask_purple[y_b:y_b + h_b, x_b:x_b + w_b]
+                roi_yello = mask_yello[y_b:y_b + h_b, x_b:x_b + w_b]
 
     for cnt_green in contours_green :
         if cv2.contourArea(cnt_green) > MIN_CONTOUR_AREA:
@@ -92,16 +98,24 @@ def color_recognition(frame) :
                 cv2.rectangle(frame, (x_g, y_g), (x_g + w_g, y_g + h_g), (0, 255, 0), 2)
                 roi_green = mask_green[y_g:y_g + h_g, x_g:x_g + w_g]
 
+    for cnt_purple in contours_purple :
+        if cv2.contourArea(cnt_purple) > MIN_CONTOUR_AREA:
+            x_g, y_g, w_g, h_g = cv2.boundingRect(cnt_green)
+            if abs(w_g - h_g) <= 5:
+                cv2.rectangle(frame, (x_g, y_g), (x_g + w_g, y_g + h_g), (0, 255, 0), 2)
+                roi_purple = mask_purple[y_g:y_g + h_g, x_g:x_g + w_g]
+
     #remask_red = cv2.inRange(roi_red, lower_red,upper_red)
-    #remask_purple = cv2.inRange(roi_purple, lower_purple,upper_purple)
+    #remask_yello = cv2.inRange(roi_yello, lower_yello,upper_yello)
     #remask_green = cv2.inRange(roi_green, lower_green,upper_green)
 
     red_pixels = cv2.countNonZero(roi_red) 
-    purple_pixels = cv2.countNonZero(roi_purple) 
+    yello_pixels = cv2.countNonZero(roi_yello) 
     green_pixels = cv2.countNonZero(roi_green) 
+    purple_pixels = cv2.countNonZero(roi_purple) 
      
 
-    color = {"628호":red_pixels, "602호": purple_pixels, "611호": green_pixels}
+    color = {"not found":red_pixels, "620": yello_pixels, "elevator": green_pixels, "610": purple_pixels}
     loc_val = max(color, key = color.get, default= "*")
     
     return frame, loc_val
