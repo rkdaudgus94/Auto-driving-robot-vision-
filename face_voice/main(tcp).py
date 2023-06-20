@@ -56,7 +56,7 @@ def send():
                     print(f"{arrv}에 도착했습니다!")
                     check = ' '.join(arrv)
                     connection.sendall(check.encode('utf-8'))
-                    signal = None
+                    signal = 'not yet'
             else :
                 print("연결이 안됨")
             time.sleep(1)
