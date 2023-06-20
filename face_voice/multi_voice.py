@@ -157,6 +157,7 @@ def respeak():
             tts_kr.save(wav_path)
             playsound.playsound(wav_path)
             return respeak()
+        
         else :
             print("내용을 다시 한 번 말씀해주시겠어요?")
             txt = "내용을 다시 한 번 말씀해주시겠어요?"

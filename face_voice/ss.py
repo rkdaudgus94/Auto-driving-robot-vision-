@@ -21,7 +21,7 @@ f_location = None
 ############################################################################
 
 def send():
-    global shared_r_locate, send_location, lidar_signal, arrive, f_location, lidar_signal
+    global shared_r_locate, send_location, lidar_signal, arrive, message, f_location
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # AF_INET : 주소 체계, SOCK_STREAM : TCP 방식
     server_address = ('192.168.0.25', 12351) 
@@ -44,27 +44,24 @@ def send():
         while True :
             cur_send_location = send_location # 1-2) 전달 받은 send_location을 cur_send_locatio에 저장 
             msg_arrive = None
-            signal = lidar_signal
-            arrv = arrive
             if client_address :
 
                 with lock :
-                    ##################명현################1
-                    if arrv and (signal == 'arrive') : # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
-                        msg_arrive = arrv
-                    ##################명현################1 
-                    
+                    first = f_location
+                    if first :
+                        print("first")
+                    if arrive and lidar_signal: # 라이다에서 목표점에 도착했을 때 신호를 받으면 실행
+                        msg_arrive = arrive
+                        
                     elif prev_send_location != cur_send_location : # mic_speaker로부터 목표지점의 데이터를 전달받았을 때 라이다로 전송
                         cur_send_location = '1'
                         msg_location = cur_send_location
                         prev_send_location = cur_send_location
-                    
-                    ##################명현################2
+
 
                     if msg_arrive :
-                        print(f"{msg_arrive}에 도착했습니다.")
-
-                    ##################명현################2
+                        connection.sendall(msg_arrive.encode('utf-8'))
+                        print(f"{msg_arrive}에 도착했다는 메시지를 보냈습니다. ")
 
                     if msg_location :
                         connection.sendall(msg_location.encode('utf-8'))
@@ -81,16 +78,12 @@ def send():
 ############################################################################
 
 def recv(connection): # lidar로부터 목표점에 도착했다는 신호를 받기 위한 함수
-    global lidar_signal
+    global lidar_signal, message
 
     while True :
         message = connection.recv(1024)
-        with lock :
-            ##################명현################3
-            if message :
-                print(f"라이다로부터 받은 메세지 : {message}")
-                lidar_signal = message
-            ##################명현################3
+        if message :
+            print(f"라이다로부터 받은 메세지 : {message}")
 
 ############################################################################
 ############################################################################
@@ -129,14 +122,13 @@ def mic_speaker(): # Voice
     for r_name_list, r_locate_list, f_place in main_voice() :
         print ("r_name :" , r_name_list)
         print ("r_place :", r_locate_list)
-        print ("f_place :", f_place)
+        print ("f+place :", f_place)
         with lock:
             if (r_name_list != []) or (r_locate_list != []) or (f_place != []) :
                 shared_r_name_list = r_name_list
                 shared_r_locate = r_locate_list
                 send_location = r_locate_list # 1-1) 음성인식으로 전달받은 데이터를 send_location으로 저장후 send()에 전송
                 f_location = f_place
-
 ############################################################################
 ############################################################################
 ############################################################################
