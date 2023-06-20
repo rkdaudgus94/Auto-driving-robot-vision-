@@ -74,6 +74,7 @@ def recv(connection): # lidar로부터 목표점에 도착했다는 신호를 �
         try:
 
             message = connection.recv(1024)
+            message = message.decode('utf-8')
             with lock :
                 if message :
                     print(f"라이다로부터 받은 메세지 : {message}")
@@ -108,6 +109,7 @@ def camera():
                 if (str_location == shared_r_locate) and (complete_count % 20 == 0) :
                     print("{0}에 도착했습니다. ".format(str_location))
                     arrive = re.findall(r'\d+', str_location)
+                    print(arrive)
         # cv2.imwrite('captured_frame.jpg', frame)  # 사진 기능 captured_frame : 저장할 이름
 
 ############################################################################
