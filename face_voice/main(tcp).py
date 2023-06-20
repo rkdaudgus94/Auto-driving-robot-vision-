@@ -43,7 +43,7 @@ def send():
 
         while True :
            # cur_send_location = send_location # 1-2) 전달 받은 send_location을 cur_send_locatio에 저장 
-           # msg_arrive = None
+            msg_arrive = None
             signal = lidar_signal
             arrv = arrive
             if client_address :
@@ -64,7 +64,8 @@ def send():
 
                     if msg_arrive :
                         print(f"{msg_arrive}에 도착했습니다.")
-
+                    else :
+                        pass
                     ##################명현################2
 
                   #  if msg_location :
