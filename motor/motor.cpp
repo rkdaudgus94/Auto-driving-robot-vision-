@@ -438,7 +438,7 @@ void MotorControl::call(InputData input){
             softPwmWrite(pwmPinB, min(pwmR, 10));         
 
             Calculation(input);      
-            
+            std::cout << "1사분면"; 
             std::cout << "회전 ";     
             
             if (error_s <= sss) {
@@ -501,7 +501,8 @@ void MotorControl::call(InputData input){
             softPwmWrite(pwmPinA, min(pwmL, 10));     
             softPwmWrite(pwmPinB, min(pwmR, 70));         
 
-            Calculation(input);       
+            Calculation(input);
+            std::cout << " 2사분면 ";       
             
             if (error_s <= sss) {
                 // 방향 설정 
@@ -512,18 +513,18 @@ void MotorControl::call(InputData input){
                 // 속도 설정 
                 softPwmWrite(pwmPinA, 0);
                 softPwmWrite(pwmPinB, 0);
-
+                std::cout << " 2사분면2 "; 
                 if (error_d > tolerance) {
                   // 방향 설정 
                   digitalWrite(AIN1, LOW);
                   digitalWrite(AIN2, HIGH);
                   digitalWrite(BIN3, LOW);
                   digitalWrite(BIN4, HIGH);
-            
+
                   // 속도 설정 
                   softPwmWrite(pwmPinA, min(pwmL, 52));     
                   softPwmWrite(pwmPinB, min(pwmR, 59));      
-                  
+                  std::cout << " 2사분면3 "; 
                   std::cout << "회전 후 전진 ";          
                 }    
                   else if (error_d <= tolerance) {
@@ -535,7 +536,7 @@ void MotorControl::call(InputData input){
                     // 속도 설정 
                     softPwmWrite(pwmPinA, 0);
                     softPwmWrite(pwmPinB, 0);  
-
+                    std::cout << " 2사분면4 "; 
                     prev_distance_robot = distance_robot;
 
                     std::cout << "회전 후 정지 ";                  

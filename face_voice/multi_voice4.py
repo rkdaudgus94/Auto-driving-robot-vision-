@@ -107,7 +107,7 @@ def respeak():
                 if text :
                     f_location = text
                     if (f_location == '엘리베이터') or (f_location == '앨리베이터') :
-                        f_location = 'elevator'
+                        f_location = 'elevatorf'
                         print('"현재 위치"가 전송되었습니다. 내용을 말씀해주세요!')
                         text = '현재 위치가 전송되었습니다. 내용을 말씀해주세요!'
                         tts_kr = gTTS(text, lang = 'ko', slow = False)
@@ -288,7 +288,7 @@ def speak():
                 print(v_place)
                 
                 if (v_place == '엘리베이터') or (v_place == '앨리베이터') :
-                    v_place = 'elevator'
+                    v_place = 'elevatora'
                 else :
                     v_place = v_place
                                 
