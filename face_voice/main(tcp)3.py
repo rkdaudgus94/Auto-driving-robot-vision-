@@ -79,7 +79,7 @@ def send():
                     playsound.playsound(wav_path)
                     
                 if msg_cur_location and (msg_cur_location_check == "one") : # 현재 위치
-                    connection.sendall(msg_location.encode('utf-8'))
+                    connection.sendall(msg_cur_location.encode('utf-8'))
                     print(f"라이다에게 현재 {msg_cur_location}의 좌표값을 보냈습니다. ")
                     msg_cur_location_check = "two"
                     
