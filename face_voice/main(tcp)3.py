@@ -78,17 +78,18 @@ def send():
                     tts_kr.save(wav_path)
                     playsound.playsound(wav_path)
                     
-                if msg_cur_location and (msg_cur_location_check == "one") : # 현재 위치
-                    connection.sendall(msg_cur_location.encode('utf-8'))
-                    print(f"라이다에게 현재 {msg_cur_location}의 좌표값을 보냈습니다. ")
+                if (msg_cur_location and (msg_cur_location_check == "one")) or (msg_location and (msg_location_check == "once")) : # 현재 위치
+                    msg = msg_cur_location + msg_location
+                    connection.sendall(msg.encode('utf-8'))
+                    print(f"라이다에게 현재 {msg}의 좌표값을 보냈습니다. ")
                     msg_cur_location_check = "two"
-                    
-                    time.sleep(2)
-
-                if  msg_location and (msg_location_check == "once"): # 목표 위치
-                    connection.sendall(msg_location.encode('utf-8'))
-                    print(f"라이다에게 {msg_location}의 좌표값을 보냈습니다. ")
                     msg_location_check = "twice"
+                    
+
+                #if  msg_location and (msg_location_check == "once"): # 목표 위치
+                #    connection.sendall(msg_location.encode('utf-8'))
+                #    print(f"라이다에게 {msg_location}의 좌표값을 보냈습니다. ")
+                #    msg_location_check = "twice"
 
             else :
                 print("연결이 안됨")
@@ -139,7 +140,7 @@ def camera():
 
         if shared_r_name_list or shared_r_locate:
             with lock:
-                if (str_names == shared_r_name_list) and (complete_count % 20 == 0):
+                if (str_names == shared_r_name_list) and (complete_count % 10 == 0):
                     print("일치합니다")
                     num += 1
                     if num % 5 == 0 :
