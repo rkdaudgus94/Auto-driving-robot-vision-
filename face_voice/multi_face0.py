@@ -118,7 +118,7 @@ def color_recognition(frame) :
     blue_pixels = cv2.countNonZero(roi_blue) 
      
 
-    color = {"not found":red_pixels, "620": White_pixels, "elevator": green_pixels, "610": blue_pixels}
+    color = {"not found":red_pixels, "620a": White_pixels, "elevator": green_pixels, "610a": blue_pixels}
     loc_val = max(color, key = color.get, default= "*")
     
     return frame, loc_val
