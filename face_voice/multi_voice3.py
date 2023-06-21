@@ -106,9 +106,9 @@ def respeak():
                 
                 if text :
                     f_location = text
-                    f_location = f_location.replace('호', 'f')
-                    if f_location == '엘리베이터' or '앨리베이터' :
+                    if f_location == ('엘리베이터') or ('앨리베이터') :
                         f_location = 'elevator'
+                    f_location = f_location.replace('호', 'f')
                         
                     print('"현재 위치"가 전송되었습니다. 내용을 말씀해주세요!')
                     text = '현재 위치가 전송되었습니다. 내용을 말씀해주세요!'
