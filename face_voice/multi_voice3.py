@@ -106,18 +106,20 @@ def respeak():
                 
                 if text :
                     f_location = text
-                    if f_location == ('엘리베이터') or ('앨리베이터') :
+                    if (f_location == '엘리베이터') or (f_location == '앨리베이터') :
                         f_location = 'elevator'
-                    f_location = f_location.replace('호', 'f')
+                    else :
                         
-                    print('"현재 위치"가 전송되었습니다. 내용을 말씀해주세요!')
-                    text = '현재 위치가 전송되었습니다. 내용을 말씀해주세요!'
-                    tts_kr = gTTS(text, lang = 'ko', slow = False)
-                    wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
-                    tts_kr.save(wav_path)
-                    playsound.playsound(wav_path)
-                    print(f_location)
-                    return speak() if f_location else respeak()
+                        f_location = f_location.replace('호', 'f')
+                        
+                        print('"현재 위치"가 전송되었습니다. 내용을 말씀해주세요!')
+                        text = '현재 위치가 전송되었습니다. 내용을 말씀해주세요!'
+                        tts_kr = gTTS(text, lang = 'ko', slow = False)
+                        wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
+                        tts_kr.save(wav_path)
+                        playsound.playsound(wav_path)
+                        print(f_location)
+                        return speak() if f_location else respeak()
                  
                 else :
                     print("'현재 위치'라고 다시 말해주세요")
@@ -277,8 +279,10 @@ def speak():
                 print(v_name)
                 print(v_place)
                 
-                if v_place == '엘리베이터' or '앨리베이터' :
+                if (v_place == '엘리베이터') or (v_place == '앨리베이터') :
                     v_place = 'elevator'
+                else :
+                    v_place = v_place
                                 
                 # 로마자 변환을 위한 Transliter 클래스 객체 생성
                 trans = Transliter(rule=academic)
