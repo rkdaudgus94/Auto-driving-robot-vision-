@@ -108,6 +108,13 @@ def respeak():
                     f_location = text
                     if (f_location == '엘리베이터') or (f_location == '앨리베이터') :
                         f_location = 'elevator'
+                        print('"현재 위치"가 전송되었습니다. 내용을 말씀해주세요!')
+                        text = '현재 위치가 전송되었습니다. 내용을 말씀해주세요!'
+                        tts_kr = gTTS(text, lang = 'ko', slow = False)
+                        wav_path = os.path.join("/home/hyeun/ssun/620_capstone", "voice.wav")
+                        tts_kr.save(wav_path)
+                        playsound.playsound(wav_path)
+                        print(f_location)
                         return speak() if f_location else respeak()
                     
                     else :
