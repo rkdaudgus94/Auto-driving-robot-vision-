@@ -131,7 +131,7 @@ def camera():
 
     face_recognition = Facerecognition0()
     complete_count = 0
-
+    num = 0
     for names, location in face_recognition.video():
         str_names = ''.join(str(element) for element in names)
         str_location = ''.join(str(element1) for element1 in location)
