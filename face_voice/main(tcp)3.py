@@ -71,12 +71,13 @@ def send():
                     print(f"{arrv}에 도착했습니다!")
                     check = ' '.join(arrv)
                     connection.sendall(check.encode('utf-8'))
-                    lidar_signal = 'finish'
                     txt = f"목표지점에 도착했습니다. {check_name}님 카메라에 얼굴을 내밀어 주세요."
                     tts_kr = gTTS(txt, lang = 'ko', slow = False)
                     wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
                     tts_kr.save(wav_path)
                     playsound.playsound(wav_path)
+                    lidar_signal = 'finish'
+                    time.sleep(1)
                     
                 if (msg_cur_location and (msg_cur_location_check == "one")) or (msg_location and (msg_location_check == "once")) : # 현재 위치
                     msg = msg_cur_location + ' ' + msg_location
@@ -84,6 +85,7 @@ def send():
                     print(f"라이다에게 현재 {msg}의 좌표값을 보냈습니다. ")
                     msg_cur_location_check = "two"
                     msg_location_check = "twice"
+                    time.sleep(1)
                     
 
                 #if  msg_location and (msg_location_check == "once"): # 목표 위치
