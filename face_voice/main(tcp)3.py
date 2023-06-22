@@ -145,7 +145,7 @@ def camera():
                 if (str_names == shared_r_name_list) and (complete_count % 10 == 0):
                     print("일치합니다")
                     num += 1
-                    if num % 3 == 0 :
+                    if num % 2 == 0 :
                         txt = "일치합니다"
                         tts_kr = gTTS(txt, lang = 'ko', slow = False)
                         wav_path = os.path.join("/home/hyeun/2023-1-Capstone-/face_voice", "voice.wav")
