@@ -31,3 +31,36 @@
 &nbsp;&nbsp;&nbsp;**객체**
 - **FaceRecognition :** 파이썬에서 얼굴 인식을 수행하기 위한 라이브러리
 - **OpenCV :** 실시간 컴퓨터 비전을 목적으로 한 프로그래밍 라이브러리
+
+  **👩얼굴 인코딩👩 :** 폴더에 png 파일로 저장된 얼굴의 이미지가 로드되고, 그 얼굴들의 특징은 Face Recognition 라이브러리의 face_encodings함수를 사용하여 추출됩니다. </br>
+  추출된 각 얼굴 인코딩은 배열에 저장됩니다. 또한, 각 얼굴의 이름 또한 따로 리스트에 저장됩니다.</br>
+
+  **📺비디오 스트리밍📺 :** OpenCV를 사용하여 실시간 프레임을 제공 받습니다. 각 프레임은 처리하기 위해 1/4로 크기가 조정되고, 그 다음 RGB로 변환됩니다.</br>
+  이 변환된 이미지에서 Face Recognition 라이브러리의 face_locations함수를 사용하여 얼굴의 위치를 찾고, face_encodings함수를 사용하여 그 얼굴의 특징을 추출합니다.</br>
+
+  **👬얼굴 비교 및 식별👬 :** 각 비디오 프레임에서 얻은 얼굴 인코딩은 알려진 얼굴 인코딩들과 비교됩니다. 이 비교는 Face Recognition 라이브러리의 compare_faces함수를 사용하여 수행되며, 인식된 얼굴이 알려진 얼굴 중 어느 것과 가장 유사한지를 결정합니다.</br>
+   compare_faces함수에는 얼만큼 유사한지 기준을 정할 수 있는데 0~1까지 값을 설정할 수 있으며 이 값은 유클라디안의 거리를 나타냅니다. </br>
+   즉, 유클라디안 거리값을 작게 설정할수록 보다 엄격한 기준으로 비교합니다.</br>
+   그런 다음, 얼굴 인코딩 간의 거리를 계산하여 가장 가까운 인코딩(즉, 가장 유사한 얼굴)을 찾습니다.</br>
+   이 얼굴이 알려진 얼굴 목록의 어떤 얼굴과 일치하는지를 결정하고, 해당 얼굴의 이름을 얻을 수 있습니다.
+  <div align="center">
+    <img width="700" alt="image" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/a1d15d05-501a-457b-8d7f-49d97f12ac04">
+  </div>
+    
+  <div align="left">
+
+  **🔸컬러 인식🔸 :** RGB(Red, Green, Blue) 색 공간보다 더 정확하게 색상을 구분할 수 있는 HSV(Hue, Saturation, Value) 색 공간을 이용하여 색상을 구분합니다.</br>
+  먼저 특정 색상(빨강, 파랑, 하양, 초록)의 범위를 설정합니다. 정의된 색상 범위를 사용하여 원본 이미지에 마스크를 적용합니다. </br>
+  마스크는 특정 색상 범위 내의 픽셀만을 유지하고 나머지 픽셀을 모두 제거합니다. 마스크된 이미지에서 윤곽선을 검출한 후 윤곽선 안에 있는 이미지의 색을 분석합니다.</br>
+  이 때 윤곽선 중 일정 크기 이상의 영역만 추출하여 작은 노이즈를 제거합니다. 이후 이미지에 나타나 있는 색의 픽셀 수를 계산하여 색상을 결정합니다. 이후 그 색상에 연결된 장소값(“not found”, “620a”, “elevator”, “610a”)을 반환합니다.
+</div>
+
+  ```
+
+  color= {"not found":red_pixels, "620a": White_pixels, "elevator": green_pixels, "610a": blue_pixels}
+
+  ```
+<div align="center">
+  <img width="700" alt="image" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/f49a0c3f-fdfb-4293-bc2c-77bce003fb2d">
+</div>
+  
