@@ -1,6 +1,6 @@
 <div align="center">
     <h1>  🚩Capstone Design🚩 <br>
-            Autonomous Mobile Robot(🔭Vision)(미완) </h1>
+            Autonomous Mobile Robot(🔭Vision)(미완성) </h1>
 </div>
 
 <div align="left">
