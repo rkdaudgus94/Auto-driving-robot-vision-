@@ -7,9 +7,9 @@
     
 ## 🔓 : 사용한 코드 파일
 
-- main(tcp)3.py
-- multi_face0.py
-- multi_voice4.py
+- facevoice/main(tcp)3.py
+- facevoice/multi_face0.py
+- facevoice/multi_voice4.py
     
 ## 🏳️ : 프로젝트 목표
 
