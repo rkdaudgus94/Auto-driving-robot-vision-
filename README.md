@@ -1,6 +1,6 @@
 <div align="center">
     <h1>  🚩Capstone Design🚩 <br>
-            Autonomous Mobile Robot(🔭Vision) </h1>
+            Autonomous Mobile Robot(🔭Vision)(미완) </h1>
 </div>
 
 <div align="left">
@@ -42,13 +42,14 @@
    compare_faces함수에는 얼만큼 유사한지 기준을 정할 수 있는데 0~1까지 값을 설정할 수 있으며 이 값은 유클라디안의 거리를 나타냅니다. </br>
    즉, 유클라디안 거리값을 작게 설정할수록 보다 엄격한 기준으로 비교합니다.</br>
    그런 다음, 얼굴 인코딩 간의 거리를 계산하여 가장 가까운 인코딩(즉, 가장 유사한 얼굴)을 찾습니다.</br>
-   이 얼굴이 알려진 얼굴 목록의 어떤 얼굴과 일치하는지를 결정하고, 해당 얼굴의 이름을 얻을 수 있습니다.
+   이 얼굴이 알려진 얼굴 목록의 어떤 얼굴과 일치하는지를 결정하고, 해당 얼굴의 이름을 얻을 수 있습니다.</br></br>
+   ex) 음성 명령을 통해 받은 이름 데이터와 비디오를 통해 인식되는 얼굴의 데이터 네임과 일치하는지 확인한 후 일치하면 “일치합니다” 출력 
   <div align="center">
     <img width="700" alt="image" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/a1d15d05-501a-457b-8d7f-49d97f12ac04">
   </div>
-    
+  </br>  
   <div align="left">
-
+  
   **🔸컬러 인식🔸 :** RGB(Red, Green, Blue) 색 공간보다 더 정확하게 색상을 구분할 수 있는 HSV(Hue, Saturation, Value) 색 공간을 이용하여 색상을 구분합니다.</br>
   먼저 특정 색상(빨강, 파랑, 하양, 초록)의 범위를 설정합니다. 정의된 색상 범위를 사용하여 원본 이미지에 마스크를 적용합니다. </br>
   마스크는 특정 색상 범위 내의 픽셀만을 유지하고 나머지 픽셀을 모두 제거합니다. 마스크된 이미지에서 윤곽선을 검출한 후 윤곽선 안에 있는 이미지의 색을 분석합니다.</br>
@@ -63,4 +64,16 @@
 <div align="center">
   <img width="700" alt="image" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/f49a0c3f-fdfb-4293-bc2c-77bce003fb2d">
 </div>
-  
+
+## ⏹️ : 블록선도
+<div align="center">
+    <img width="500" alt="image" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/8499ec31-a0c2-4f44-9146-363f274d3fdf">
+</div>
+
+## 🧷 : 설계도 사진
+<div align="center">
+    <img width="553" alt="image" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/c1cc75af-4090-472a-8be8-fc789f05aee0">
+</div>
+<div align="center">
+    <img width="553" alt="image" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/97517b45-7c17-420e-8d67-1da773900a5b">
+</div>
