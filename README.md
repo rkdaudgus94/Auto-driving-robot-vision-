@@ -47,7 +47,8 @@
 - 일치 시 **“일치합니다” 출력** 처리
 
 <div align="center">
-  <img width="700" alt="face-match" src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/a1d15d05-501a-457b-8d7f-49d97f12ac04">
+  <img width="1057" height="596" alt="image" src="https://github.com/user-attachments/assets/68564650-73b6-434c-a410-009df0fb5d64" />
+
 </div>
 
 ### 4) 컬러 인식 (HSV)
@@ -82,6 +83,8 @@ color = {
 - **PyAudio**: 오디오 입·출력 접근
 - **playsound**: 사운드 파일 재생
 - **hangul_romanize**: 한글 로마자 표기 변환
+<img width="1056" height="594" alt="image" src="https://github.com/user-attachments/assets/ce15eb47-592b-47bf-9d79-fccd34eb378a" />
+
 
 ### 객체·비전
 - **FaceRecognition**: 얼굴 탐지·인코딩·매칭
