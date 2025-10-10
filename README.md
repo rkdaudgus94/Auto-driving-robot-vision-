@@ -85,11 +85,12 @@
 
     
 
-## 팀원소개
+</div>
+<div>
+    ## 팀원소개
 
 | [양희웅](https://github.com/happybear98) (팀장) | [강명현](https://github.com/rkdaudgus94) | [이혜선](https://github.com/ssun0402) | [황태언](https://github.com/tae2on) |
 | :---: | :---: | :---: | :---: |
 | [<img src="https://github.com/happybear98.png" width="100px">](https://github.com/happybear98) | [<img src="https://github.com/rkdaudgus94.png" width="100px">](https://github.com/rkdaudgus94) | [<img src="https://github.com/ssun0402.png" width="100px">](https://github.com/ssun0402) | [<img src="https://github.com/tae2on.png" width="100px">](https://github.com/tae2on) |
 | <div align="left">• LiDAR 기반 실내 지도 작성 및 SLAM<br>• 경로 계획 및 장애물 회피 알고리즘 설계</div> | <div align="left">• 얼굴 및 대상 인식을 위한 컴퓨터 비전 모델 개발<br>• 영상 처리 및 인식 정확도 개선</div> | <div align="left">• 음성 명령 인식(STT) 및 출력(TTS) 기능 구현<br>• 사용자 인터페이스 및 시나리오 설계</div> | <div align="left">• 모터 PID 제어 및 속도 안정화<br>• Dead Reckoning 기반 위치 추정 로직 구현</div> |
-
 </div>
