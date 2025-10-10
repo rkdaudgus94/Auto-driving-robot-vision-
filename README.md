@@ -92,7 +92,7 @@ color = {
 - 병렬 실행을 통해 영상 인식, 음성 인식, 통신을 동시에 수행할 수 있는 구조 확보
 
 <div align="center">
-  <img src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/37002ad4-56e0-429b-9aef-5beb552b8326.png" width="750"/>
+  <img width="1053" height="586" alt="image" src="https://github.com/user-attachments/assets/7dbb13d8-a95e-47b9-b41b-1092c357b9b5" />
 </div>
 
 ### 🌐 TCP/IP 통신 (Socket)
