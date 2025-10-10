@@ -22,6 +22,7 @@
 ### 1) 주행·제어
 - **PID 제어 기반 2모터·4바퀴 동시 구동**을 통한 목표 위치 이동
 - **ROS 기반 주행 스택 구성** 및 센서 데이터 연동
+<img width="1057" height="590" alt="image" src="https://github.com/user-attachments/assets/8d7e2497-6385-4429-ae78-df5e9ff806ac" />
 
 ### 2) 지도 작성·경로 계획
 - **LiDAR 센서 기반 실내 구조 파악 및 SLAM 수행**
@@ -74,8 +75,37 @@ color = {
 - **STT(Talk-to-Text)·TTS(Text-to-Speech) 파이프라인 구성**
 - **대상자 이름 음성 입력 → 얼굴 인식 결과와 교차 확인 → 음성 알림 출력**
 - **모바일 앱 연동** 기반 동작 상태·적재 물품 확인
+<img width="1056" height="594" alt="image" src="https://github.com/user-attachments/assets/ce15eb47-592b-47bf-9d79-fccd34eb378a" />
 
-## ✍️ 사용 라이브러리
+
+### 6) 🔄 시스템 연동 구조
+
+### 🧩 Multi Threading
+- **파이썬 threading 모듈** 기반 병렬 작업 수행 구조  
+- 각 스레드의 **독립적 실행**을 통한 **동시 다중 작업 처리**  
+- **threading.Lock()** 함수를 이용한 **공유 변수 접근 동기화**  
+- 주요 스레드 구성 요소:
+  - **Camera** : 영상 입력 처리
+  - **MIC** : 음성 입력 수집
+  - **TCP/IP (Receive)** : 수신 데이터 처리
+  - **TCP/IP (Send)** : 송신 데이터 전송  
+- 병렬 실행을 통해 영상 인식, 음성 인식, 통신을 동시에 수행할 수 있는 구조 확보
+
+<div align="center">
+  <img src="https://github.com/rkdaudgus94/Auto-driving-robot-vision-/assets/76949032/37002ad4-56e0-429b-9aef-5beb552b8326.png" width="750"/>
+</div>
+
+### 🌐 TCP/IP 통신 (Socket)
+- **인터넷 네트워크의 핵심 프로토콜** 기반 통신 구조  
+- 정보가 일정한 크기의 **패킷(Packet)** 단위로 분할되어 전송  
+- 네트워크 상의 여러 노드 조합을 통해 **경로(Route) 생성 및 분산 전송**  
+- 수신 측에서 도착한 패킷을 **원래 정보·파일 형태로 재조립**하는 기능  
+- **Jetson Nano 보드 ↔ Raspberry Pi 보드 간 통신 구성**
+  - Jetson Nano: 음성 인식, 객체 인식, 컬러 인식 수행 → **현재 위치·목표 위치 명령어 송신**
+  - Raspberry Pi: **경로 계획·모터 제어 수행** → 목표 위치 도달 신호 명령 송신  
+
+이 구조를 통해 Jetson Nano는 **인지(Intelligence)**, Raspberry Pi는 **제어(Control)** 역할을 수행하며,  
+두 보드가 TCP/IP 통신으로 연동되어 **실시간 자율주행 로봇 제어**가 가능함.
 
 ### 음성
 - **SpeechRecognition**: 음성 인식 처리
@@ -83,7 +113,6 @@ color = {
 - **PyAudio**: 오디오 입·출력 접근
 - **playsound**: 사운드 파일 재생
 - **hangul_romanize**: 한글 로마자 표기 변환
-<img width="1056" height="594" alt="image" src="https://github.com/user-attachments/assets/ce15eb47-592b-47bf-9d79-fccd34eb378a" />
 
 
 ### 객체·비전
