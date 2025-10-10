@@ -1,5 +1,6 @@
 <div align="center">
   <h1>🚩 Capstone Design 🚩<br/>Autonomous Mobile Robot (🔭 Vision)</h1>
+  <img width="1272" height="729" alt="image" src="https://github.com/user-attachments/assets/853a31bc-78bc-44b1-a222-cc6959d5f186" />
 </div>
 
 <div align="left">
