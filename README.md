@@ -87,7 +87,7 @@
 
 </div>
 <div>
-    ## 팀원소개
+## 👬 : 팀원
 
 | [양희웅](https://github.com/happybear98) (팀장) | [강명현](https://github.com/rkdaudgus94) | [이혜선](https://github.com/ssun0402) | [황태언](https://github.com/tae2on) |
 | :---: | :---: | :---: | :---: |
